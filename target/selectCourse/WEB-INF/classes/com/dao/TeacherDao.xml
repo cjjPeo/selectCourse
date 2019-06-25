@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.TeacherDao">
+    <select id="findSelectByTeacher" parameterType="String" resultType="excel">
+        select tt.userId,t1.topicId,t1.topicName,t1.demand,t1.numberLimit,t1.majorLimit,t1.userDetail,t1.releaseSingal from topic_teacher tt
+        left  join (select t.topicId,t.topicName,t.demand,t.numberLimit,t.majorLimit,c1.userDetail,t.releaseSingal from topic t
+        left join (select c.topicId,group_concat(concat_ws('-',c.userId,u.userName,u.className,u.majorIn)) as userDetail from choose c
+        left join (select userId,userName,className,majorIn from users)u on u.userId=c.userId group by c.topicId)c1 on t.topicId=c1.topicId)t1 on t1.topicId=tt.topicId
+        where tt.userId=#{userId} and t1.releaseSingal='1'
+    </select>
+    <select id="findTopicById" parameterType="String" resultType="Integer">
+        select count(*) from topic where topicId=#{topicId}
+    </select>
+
+    <insert id="insertTopicDetail" parameterType="topic">
+        insert into topic(topicId,topicName,topicYear,demand,numberLimit,majorLimit,releaseSingal) values(#{topic.topicId},#{topic.topicName},#{topic.topicYear},#{topic.demand},#{topic.numberLimit},#{topic.majorLimit},#{topic.releaseSingal})
+    </insert>
+    <insert id="insertTopicTeacher" parameterType="topic">
+        insert into topic_teacher values (#{topic.userId},#{topic.topicId})
+    </insert>
+</mapper>

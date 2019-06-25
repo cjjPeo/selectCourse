@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.LoginDao">
+    <select id="findLoginUser" parameterType="String" resultType="login">
+        select * from login where userId=#{userId} and password=md5(#{password}) and userState=#{userState}
+    </select>
+    <update id="updateRemarks" parameterType="String">
+        update login set remarks=#{remarks} where userId=#{userId}
+    </update>
+    <update id="updatePassword" parameterType="String">
+        update login set password=md5(#{password}) where userId=#{userId}
+    </update>
+</mapper>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.StudentChooseDao">
+    <select id="findTopic" parameterType="String" resultType="topic">
+        select t.topicId,t.topicName,t.demand,t.numberLimit,t.majorLimit,t.deadline,tt.userName,t.releaseSingal from topic t
+        left join (
+        select topicId,u.userName from topic_teacher left join (
+        select userId,userName from users)u on topic_teacher.userId=u.userId)tt on tt.topicId=t.topicId
+        <where>
+            <if test="topicName != null and topicName !=''">
+                t.topicName like concat('%',#{topicName},'%')
+            </if>
+            <if test="majorLimit !=null and majorLimit !=''">
+                t.majorLimit like concat('%',#{majorLimit},'%')
+            </if>
+            <if test="userName !=null and userName !=''">
+                tt.userName like concat('%',#{userName},'%')
+            </if>
+            and t.releaseSingal='1'
+        </where>
+    </select>
+    <select id="findCountThisTopic" parameterType="String" resultType="Integer">
+        select count(*) from choose where topicId=#{topicId}
+    </select>
+    <update id="updatePassword" parameterType="String">
+        update login set password=md5(#{password}) where userId=#{userId}
+    </update>
+</mapper>
