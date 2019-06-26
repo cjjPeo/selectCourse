@@ -1,10 +1,7 @@
 package com.controller;
 
 import com.Execel.ExecelUtil;
-import com.pojo.Excel;
-import com.pojo.Login;
-import com.pojo.Topic;
-import com.pojo.User;
+import com.pojo.*;
 import com.service.StudentChooseService;
 import com.service.TeacherService;
 import jxl.write.WriteException;
@@ -52,7 +49,7 @@ public class TeacherController {
     }
 //导出表格
     @RequestMapping(value = "outPutExcel.action")
-    public void download(HttpServletResponse response, HttpSession session) throws IOException {
+    public void download(HttpServletResponse response, HttpSession session,Model model) throws IOException {
         // 指定一个地方临时存放生成的 excel 文件，然后后面调用浏览器接口下载完后再删除
         String FILEPATH = "d:/test.xls";
         // 判断 "c:/test.xls" 文件是否已经存在，如果存在就删除掉
@@ -65,11 +62,16 @@ public class TeacherController {
         ll.add("numberLimit");
         ll.add("majorLimit");
         ll.add("userDetail");
-        ll.add("releaseSingal");
+        ll.add("releaseSignal");
         // 获取所有用户信息
         Login login=(Login)session.getAttribute("USER_SESSION");
         String userId=login.getUserId();
-        List<Excel> allUserList =this.teacherService.findSelectByTeacher(userId);
+        //查找全部已经发布的课题
+        List<Excel> allUserList =this.teacherService.findSelectByTeacher(userId,"1");
+        if(allUserList.isEmpty()){
+            model.addAttribute("msg","还没有发布的课程！");
+            return;
+        }
         // 将用户的相关信息遍历到 List<Map<String, Object>> 中
         List<Map<String, Object>> list = new ArrayList<>();
         for (Excel excel : allUserList) {
@@ -253,7 +255,7 @@ public class TeacherController {
         String year = String.valueOf(date.get(Calendar.YEAR));
         topic.setTopicYear(year);
         topic.setReleaseSingal('0');
-        Integer sign2=this.teacherService.inserOneTopic(topic);
+        Integer sign2=this.teacherService.insertOneTopic(topic);
         if (sign2>0){
             model.addAttribute("msg","插入成功");
         }else{
@@ -262,10 +264,11 @@ public class TeacherController {
         }
         return "next";
     }
+    //查看教师自己的课程
     @RequestMapping(value = "selectTopicByUserId.action")
     public String selectTopicByUserId(HttpSession session,Model model){
         Login login =(Login)session.getAttribute("USER_SESSION");
-        List<Excel> excelList=this.teacherService.findSelectByTeacher(login.getUserId());
+        List<Excel> excelList=this.teacherService.findSelectByTeacher(login.getUserId(),"");
         model.addAttribute("excelList",excelList);
         return "showTeacherTopic";
     }
@@ -305,5 +308,65 @@ public class TeacherController {
             model.addAttribute("msg","现在无学生，请加入学生");
         }
         return "showStudent";
+    }
+    //修改学生的选课,只能将该学生改到自己的其他已经发布课程中
+    @RequestMapping(value = "ForUpdateStudentTopic.action")
+    public String ForUpdateStudentTopic(String userId,HttpSession session,Model model){
+        Login login=(Login)session.getAttribute("USER_SESSION");
+        List<Topic> topicList=this.studentChooseService.findTopic("","","",login.getUserId());
+        model.addAttribute("courseList",topicList);
+        model.addAttribute("userId",userId);
+        return "updateStudentTopic";
+    }
+    @RequestMapping(value = "updateStudentTopic.action")
+    public String updateStudentTopic(String topicId,String userId,Model model){
+        Integer sin=this.teacherService.updateStudentTopic(topicId,userId);
+        if (sin>0){
+            model.addAttribute("msg","添加成功！");
+        }else {
+            model.addAttribute("msg","添加失败");
+        }
+        return "redirect:/teacher/selectTopicByUserId.action";//流程还要改
+    }
+    //从课程中删除学生的操作，另外接入的时候可能需要判断该学生选的课程是否是该教师的
+    @RequestMapping(value = "deleteStudentFromThisTopic.action")
+    public void deleteStudentTopic(String userId,String topicId,Model model){
+        Integer sin=this.teacherService.deleteStudentTopic(userId,topicId);
+        if (sin>0){
+            model.addAttribute("msg","删除成功");
+        }else {
+            model.addAttribute("msg","删除失败");
+        }
+    }
+    //将学生添加进课题,显示全部学生的信息和选择状态，如果有选择的课程可以先让他退选然后再选择
+    @RequestMapping(value = "findStudentToTopic.action")
+    public String findStudentToTopic(String topicId,Model model){
+        model.addAttribute("topicId",topicId);
+        List<StudentAndTopic> studentAndTopics=this.teacherService.findStudentToTopic();
+        System.out.println("find");
+        model.addAttribute("AllUsers",studentAndTopics);
+        return "afterInsertStudent";
+    }
+    @RequestMapping(value = "insertStudentToTopic.action")
+    public String insertStudentToTopic(String userId,String selectedSignal,String teacherId,String topicId,HttpSession session,Model model){
+        Login login=(Login)session.getAttribute("USER_SESSION");
+        if(teacherId!=null&&login.getUserId()!=teacherId){
+            model.addAttribute("msg","该学生选择了其他老师，请勿操作");
+            System.out.println("111123");
+        }else{
+            System.out.println("sisis:"+selectedSignal);
+            Integer sin;
+            if(selectedSignal=="1"){
+                sin=this.teacherService.updateStudentTopic(topicId,userId);
+            }else{
+                sin=this.teacherService.insertStudentToTopic(userId,topicId);
+            }
+            if (sin>0){
+                model.addAttribute("msg", "成功");
+            }else{
+                model.addAttribute("msg","失败");
+            }
+        }
+        return "redirect:/teacher/selectTopicByUserId.action";
     }
 }

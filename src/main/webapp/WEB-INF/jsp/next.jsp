@@ -17,10 +17,10 @@ hello!<br>
 ${USER_SESSION.userId}<br>
 ${msg}
 <a href="${pageContext.request.contextPath}/studentChoose/tosss.action">修改密码</a>
-<a href="${pageContext.request.contextPath}/teacher/outPutExcel.action">导出</a>
+<a href="${pageContext.request.contextPath}/teacher/outPutExcel.action">导出（只能在教师的页面使用，否则出错) </a>
 <a href="${pageContext.request.contextPath}/teacher/toInputData.action">导入</a>
 <a href="${pageContext.request.contextPath}/teacher/toInsertTopic.action">添加课程</a><%--//待测试--%>
-<a href="${pageContext.request.contextPath}/">显示自己的已经发布的课程全部课程</a>
+<a href="${pageContext.request.contextPath}/teacher/selectTopicByUserId.action">查看自己的课题</a>
 <br><a href="${pageContext.request.contextPath}/login/quit.action">注销</a>
 课程搜索
 <form action="${pageContext.request.contextPath}/studentChoose/searchTopic.action">

@@ -17,8 +17,8 @@ import java.util.List;
 public class StudentChooseServiceImpl implements StudentChooseService {
     @Autowired
     private StudentChooseDao studentChooseDao;
-    public List<Topic> findTopic(String topicName, String majorLimit, String userName){
-       List<Topic> topicList=  this.studentChooseDao.findTopic(topicName,majorLimit,userName);
+    public List<Topic> findTopic(String topicName, String majorLimit, String userName,String userId){
+       List<Topic> topicList=  this.studentChooseDao.findTopic(topicName,majorLimit,userName,userId);
        for(Topic topic:topicList){
            //对时间格式的处理
            Date date=topic.getDeadline();

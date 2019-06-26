@@ -48,7 +48,7 @@ public class StudentChooseController {
             System.out.println("       topicName");
         }
         System.out.println("        studentCourse");
-        List<Topic> topicList=this.studentChooseService.findTopic(topicName,majorLimit,userName);
+        List<Topic> topicList=this.studentChooseService.findTopic(topicName,majorLimit,userName,"");
         model.addAttribute("topicList",topicList);
         return "next";
     }

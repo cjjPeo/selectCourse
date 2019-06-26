@@ -7,7 +7,14 @@
         left  join (select t.topicId,t.topicName,t.demand,t.numberLimit,t.majorLimit,c1.userDetail,t.releaseSingal from topic t
         left join (select c.topicId,group_concat(concat_ws('-',c.userId,u.userName,u.className,u.majorIn)) as userDetail from choose c
         left join (select userId,userName,className,majorIn from users)u on u.userId=c.userId group by c.topicId)c1 on t.topicId=c1.topicId)t1 on t1.topicId=tt.topicId
-        where tt.userId=#{userId} and t1.releaseSingal='1'
+        <where>
+            <if test="userId != null and userId !=null">
+                tt.userId=#{userId}
+            </if>
+            <if test="releaseSingal != null and releaseSingal!=''">
+                t1.releaseSingal=#{releaseSingal}
+            </if>
+        </where>
     </select>
     <select id="findTopicById" parameterType="String" resultType="Integer">
         select count(*) from topic where topicId=#{topicId}
@@ -19,4 +26,26 @@
     <insert id="insertTopicTeacher" parameterType="topic">
         insert into topic_teacher values (#{topic.userId},#{topic.topicId})
     </insert>
+    <!--删除学生的选课-->
+    <delete id="deleteStudentTopic" parameterType="String">
+        delete from choose where userId=#{userId} and topicId=#{topicId}
+    </delete>
+    <!--修改学生的选课状态-->
+    <update id="updateStudentSignal" parameterType="String">
+        update users set selectedSignal=#{selectedSignal} where userId=#{userId}
+    </update>
+    <!--添加学生选课-->
+    <insert id="insertStudentTopic" parameterType="String">
+        insert into choose values (#{userId},#{topicId})
+    </insert>
+    <!--查找添加进课程的学生，不管是否已经选课，不管老师-->
+    <select id="findStudentForInsert" resultType="studentAndTopic">
+        select l.userId,u1.studentName,u1.majorIn,l.userState,u1.selectedSignal,u1.topicId,u1.topicName,u1.demand,u1.teacherId,u1.teacherName from login l
+        left join (select u.userId,u.userName as studentName,u.majorIn,u.selectedSignal,c1.topicId,c1.topicName,c1.demand,c1.teacherId,c1.userName as teacherName from users u
+            left join (select c.userId,t.teacherId,t.topicId,t.topicName,t.demand,t.userName from choose c
+            left join (select t1.topicId,t1.topicName,t1.demand,t2.userId as teacherId,t2.userName from topic t1
+            left  join (select tt.userId,tt.topicId,t3.userName from topic_teacher tt
+            left  join (select userId,userName from users)t3 on tt.userId=t3.userId)t2 on t2.topicId=t1.topicId)t on c.topicId=t.topicId)c1 on c1.userId=u.userId)u1 on u1.userId=l.userId
+        where userState='user'
+    </select>
 </mapper>

@@ -39,7 +39,7 @@ public class LoginController {
                 System.out.println(msg);
                 model.addAttribute("msg",msg);
             }
-            List<Topic> topicList=this.studentChooseService.findTopic("","","");
+            List<Topic> topicList=this.studentChooseService.findTopic("","","","");
             model.addAttribute("topicList",topicList);
             return "next";
         }
@@ -62,7 +62,7 @@ public class LoginController {
                 this.loginService.updateRemarks("1",login.getUserId());
                 session.setAttribute("USER_SESSION",login);
                 //全部的课题列表
-                List<Topic> topicList=this.studentChooseService.findTopic("","","");
+                List<Topic> topicList=this.studentChooseService.findTopic("","","","");
                 model.addAttribute("topicList",topicList);
                 return "redirect:/login/register.action";//避免在刷新以后表单再次提交
             }else{
