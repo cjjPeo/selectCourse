@@ -19,6 +19,6 @@
                 <input type="radio" name="userState" value="admin">管理员
     <input type="submit" value="登录">
 </form>
-${msg}  
+${msg}   aa
 </body>
 </html>
