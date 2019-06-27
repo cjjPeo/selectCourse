@@ -19,6 +19,7 @@
         <th>demand</th>
         <th>numberLimit</th>
         <th>majorLimit</th>
+        <th>发布状态</th>
         <th>操作</th>
     </tr>
     <c:forEach items="${excelList}" var="it">
@@ -28,6 +29,7 @@
             <td>${it.demand}</td>
             <td>${it.numberLimit}</td>
             <td>${it.majorLimit}</td><%--显示人数的部分/限制--%>
+            <td>${it.releaseSingal}</td>
             <td><a href="${pageContext.request.contextPath}/teacher/getTopicStudent.action?studentList=${it.userDetail}&topicId=${it.topicId}">查看学生</a> </td>
         </tr><%--等待测试--%>
     </c:forEach>

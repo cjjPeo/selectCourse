@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.AdminDao">
+    <select id="findTeacherList" resultType="user">
+        select login.userId,users.userName,users.gender from login,users where login.userId=users.userId and userState='teacher'
+    </select>
+    <select id="findTeacherExist" parameterType="String" resultType="Integer">
+        select count(*) from users,login where users.userId=login.userId and users.userId=#{userId}
+    </select>
+    <insert id="insertTeacherInUsers" parameterType="String">
+        insert into users(userId,userName,gender) values(#{userId},#{userName},#{gender})
+    </insert>
+    <insert id="insertTeacherInLogin" parameterType="String">
+        insert into login(userId,password,userState,remarks) values(#{userId},md5('123'),'teacher','0');
+    </insert>
+    <delete id="deleteTeacherFromUsers" parameterType="String">
+        delete from users where userId=#{userId}
+    </delete>
+    <delete id="deleteTeacherFromLogin" parameterType="String">
+        delete from login where userId=#{userId}
+    </delete>
+    <update id="updateTeacherUsers" parameterType="String">
+        update users set gender=#{gender},userName=#{userName} where userId=#{userId}
+    </update>
+    <update id="updateTeacherPassword" parameterType="String">
+        update login set password=md5('123')
+        <where>
+            <if test="userId!=null and userId!=''">
+                userId=#{userId}
+            </if>
+        </where>
+    </update>
+
+    <!--课程-->
+    <select id="findCourses" parameterType="String" resultType=""></select>
+</mapper>

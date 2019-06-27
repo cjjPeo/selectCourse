@@ -21,6 +21,7 @@ ${msg}
 <a href="${pageContext.request.contextPath}/teacher/toInputData.action">导入</a>
 <a href="${pageContext.request.contextPath}/teacher/toInsertTopic.action">添加课程</a><%--//待测试--%>
 <a href="${pageContext.request.contextPath}/teacher/selectTopicByUserId.action">查看自己的课题</a>
+<br><a href="${pageContext.request.contextPath}/admin/findTeacherList.action">管理员对教师的增删改查</a>
 <br><a href="${pageContext.request.contextPath}/login/quit.action">注销</a>
 课程搜索
 <form action="${pageContext.request.contextPath}/studentChoose/searchTopic.action">
