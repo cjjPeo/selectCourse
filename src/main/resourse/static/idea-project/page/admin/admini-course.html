@@ -4,14 +4,29 @@
     <meta charset="UTF-8">
     <title>课程信息</title>
     <link rel="stylesheet" href="../../layui/css/layui.css">
+    <link rel="stylesheet" href="../../css/public.css">
+    <link rel="stylesheet" href="../../css/normal.css">
 </head>
 <body>
 课程信息
 <div class="demoTable">
-    <div class="layui-inline">
-        <input class="layui-input" name="id" id="demoReload" autocomplete="off">
+    <div class="layui-form-item">
+        <form class="layui-form">
+            <div class="layui-form-item">
+                <input type="text" class="layui-input" id="search-input">
+                <button class="layui-btn " id="search-button"  lay-filter="login" lay-submit>查询</button>
+                <span class="fr">
+                    <label class="layui-btn layui-btn-sm layui-btn-normal" for="file-up" >导入课程信息</label>
+                    <input type="file" id="file-up">
+                </span>
+            </div>
+            <div class="layui-form-item input-item">
+                <input type="radio" name="id" value="t1" title="课程" checked>
+                <input type="radio" name="id" value="t2" title="教师" >
+                <input type="radio" name="id" value="t3" title="方向" >
+            </div>
+        </form>
     </div>
-    <button class="layui-btn" >搜索</button>
     <button class="layui-btn layui-btn-sm layui-btn-normal close" style="float: right;">结束选课</button>
 
 </div>
@@ -21,11 +36,7 @@
 </div>
 
 <script type="text/html" id="toolbarDemo">
-    <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
-        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
-    </div>
+
 </script>
 
 <script type="text/html" id="barDemo">

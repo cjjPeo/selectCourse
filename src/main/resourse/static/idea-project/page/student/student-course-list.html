@@ -3,8 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>课程列表</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="../../layui/css/layui.css">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../../layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="../../css/public.css" media="all" />
     <link rel="stylesheet" href="../../css/card.css">
     <link rel="stylesheet" href="../../css/normal.css">
     <link media="(max-width: 600px)" rel="stylesheet" href="../../css/mobile.css">
@@ -12,6 +18,7 @@
 </head>
 
 <body>
+
     <div style="padding: 10px;">
         <blockquote class="layui-elem-quote layui-bg-green new">
             <div class="new">
@@ -24,10 +31,17 @@
             <legend>课程列表</legend>
         </fieldset>
         <div class="layui-form-item">
-            <input type="text" class="layui-input" id="search-input">
-            <button class="layui-btn" id="search-button" >查询</button>
+            <form class="layui-form">
+                <div class="layui-form-item">
+                    <input type="text" class="layui-input" id="search-input">
+                    <button class="layui-btn " id="search-button"  lay-filter="login" lay-submit>查询</button>
+                </div>
+                <div class="layui-form-item input-item">
+                    <input type="radio" name="id" value="t1" title="课程" checked>
+                    <input type="radio" name="id" value="t2" title="教师" >
+                </div>
+            </form>
         </div>
-
 
         <div class="layui-row layui-col-space10">
             <div class="layui-col-md4">
@@ -131,13 +145,16 @@
         </div>
 
     </div>
+
+
 </body>
 
 <script src="../../layui/layui.js"></script>
 <script>
-    layui.use(['jquery','layer','laypage'],function () {
+    layui.use(['jquery','layer','laypage','form'],function () {
         var $ =layui.jquery;
         var layer = layui.layer;
+        var form = layui.form;
         var laypage = layui.laypage;
         //删除公告
         $(".del-a").click(function () {
