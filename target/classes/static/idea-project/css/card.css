@@ -1,0 +1,37 @@
+.card-title {
+    font-size: 20px;
+    cursor: pointer;
+}
+.fl {
+    float: left;
+}
+.fr {
+    float: right;
+}
+.layui-card-body p {
+    text-indent:2em;
+    line-height:2em;
+}
+.layui-card {
+    display: inline-block;
+    float: left;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.detail {
+    padding-left: 20px;
+    color: #ff6528;
+    display: none;
+    margin: 5px;
+}
+.limit {
+    color: #009688;
+    margin-left: 20px;
+    margin-top: 20px;
+    overflow:hidden
+}
+.group-card {
+    width: 250px;
+    height: 150px;
+    margin: 10px;
+}

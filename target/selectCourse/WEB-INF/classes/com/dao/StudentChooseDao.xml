@@ -3,9 +3,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.dao.StudentChooseDao">
     <select id="findTopic" parameterType="String" resultType="topic">
-        select t.topicId,t.topicName,t.demand,t.numberLimit,t.majorLimit,t.deadline,tt.userName,t.releaseSingal from topic t
+        select t.topicId,t.topicName,t.demand,t.numberLimit,t.majorLimit,t.deadline,tt.userName,tt.userId,t.releaseSingal from topic t
         left join (
-        select topicId,u.userName from topic_teacher left join (
+        select topicId,u.userName,u.userId from topic_teacher left join (
         select userId,userName from users)u on topic_teacher.userId=u.userId)tt on tt.topicId=t.topicId
         <where>
             <if test="topicName != null and topicName !=''">
@@ -16,6 +16,9 @@
             </if>
             <if test="userName !=null and userName !=''">
                 tt.userName like concat('%',#{userName},'%')
+            </if>
+            <if test="userId !=null and userId !=''">
+                tt.userId=#{userId}
             </if>
             and t.releaseSingal='1'
         </where>

@@ -3,7 +3,7 @@
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
           version="4.0">
-  <display-name>Archetype Created Web Application</display-name>
+  <display-name>selectCourse</display-name>
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>classpath:applicationContext.xml</param-value>
@@ -22,24 +22,26 @@
   <filter-mapping>
     <filter-name>CharacterEncodingFilter</filter-name>
     <url-pattern>*.action</url-pattern>
-    <!--<dispatcher>REQUEST</dispatcher>
+    <!--
+    <dispatcher>REQUEST</dispatcher>
     <dispatcher>INCLUDE</dispatcher>
-    <dispatcher>FORWARD</dispatcher>-->
+    <dispatcher>FORWARD</dispatcher>
+    -->
   </filter-mapping>
   <servlet>
     <servlet-name>mvc</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <init-param>
       <param-name>contextConfigLocation</param-name>
-      <param-value>classpath:spring-mvc.xml</param-value>
+      <param-value>classpath:springmvc-config.xml</param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
+
   <servlet-mapping>
     <servlet-name>mvc</servlet-name>
     <url-pattern>*.action</url-pattern>
   </servlet-mapping>
-
   <context-param>
     <param-name>log4jConfiguration</param-name>
     <!-- 日志配置文件路径，请根据具体项目自行调整 -->
@@ -52,4 +54,5 @@
   <session-config>
     <session-timeout>1</session-timeout>
   </session-config>
+
 </web-app>
