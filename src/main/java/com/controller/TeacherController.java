@@ -330,13 +330,15 @@ public class TeacherController {
     }
     //从课程中删除学生的操作，另外接入的时候可能需要判断该学生选的课程是否是该教师的
     @RequestMapping(value = "deleteStudentFromThisTopic.action")
-    public void deleteStudentTopic(String userId,String topicId,Model model){
-        Integer sin=this.teacherService.deleteStudentTopic(userId,topicId);
+    public String deleteStudentTopic(String userId,String topicId,Model model){
+        System.out.println("delete"+topicId+"/"+userId);
+        Integer sin=this.teacherService.deleteStudentTopic(userId);
         if (sin>0){
             model.addAttribute("msg","删除成功");
         }else {
             model.addAttribute("msg","删除失败");
         }
+        return "redirect:/teacher/selectTopicByUserId.action";
     }
     //将学生添加进课题,显示全部学生的信息和选择状态，如果有选择的课程可以先让他退选然后再选择
     @RequestMapping(value = "findStudentToTopic.action")
@@ -350,16 +352,20 @@ public class TeacherController {
     @RequestMapping(value = "insertStudentToTopic.action")
     public String insertStudentToTopic(String userId,String selectedSignal,String teacherId,String topicId,HttpSession session,Model model){
         Login login=(Login)session.getAttribute("USER_SESSION");
-        if(teacherId!=null&&login.getUserId()!=teacherId){
+        System.out.println("teacherId:"+teacherId);
+        System.out.println("userId:"+login.getUserId());
+        if(!teacherId.isEmpty()&&login.getUserId().equals(teacherId)){
             model.addAttribute("msg","该学生选择了其他老师，请勿操作");
             System.out.println("111123");
         }else{
             System.out.println("sisis:"+selectedSignal);
             Integer sin;
-            if(selectedSignal=="1"){
+            if(selectedSignal.equals("1")){
                 sin=this.teacherService.updateStudentTopic(topicId,userId);
+                System.out.println("update");
             }else{
                 sin=this.teacherService.insertStudentToTopic(userId,topicId);
+                System.out.println("insert");
             }
             if (sin>0){
                 model.addAttribute("msg", "成功");

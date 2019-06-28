@@ -28,7 +28,7 @@
     </insert>
     <!--删除学生的选课-->
     <delete id="deleteStudentTopic" parameterType="String">
-        delete from choose where userId=#{userId} and topicId=#{topicId}
+        delete from choose where userId=#{userId}
     </delete>
     <!--修改学生的选课状态-->
     <update id="updateStudentSignal" parameterType="String">

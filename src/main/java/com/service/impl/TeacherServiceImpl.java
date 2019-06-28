@@ -44,7 +44,7 @@ public class TeacherServiceImpl implements TeacherService {
     //先删除后添加
     @Override
     public Integer updateStudentTopic(String topicId, String userId) {
-        Integer sin=this.teacherDao.deleteStudentTopic(userId,topicId);
+        Integer sin=this.teacherDao.deleteStudentTopic(userId);
         Integer sin2=this.teacherDao.insertStudentTopic(userId,topicId);
         if (sin >0&& sin2>0){
             return 1;
@@ -54,8 +54,8 @@ public class TeacherServiceImpl implements TeacherService {
     }
     //直接删除
     @Override
-    public Integer deleteStudentTopic(String userId, String topicId) {
-        Integer sin=this.teacherDao.deleteStudentTopic(userId,topicId);
+    public Integer deleteStudentTopic(String userId) {
+        Integer sin=this.teacherDao.deleteStudentTopic(userId);
         Integer sin2=this.teacherDao.updateStudentSignal("0",userId);
         if (sin >0&& sin2>0){
             return 1;

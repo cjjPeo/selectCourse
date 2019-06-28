@@ -12,7 +12,7 @@ public interface TeacherDao {
     public Integer findTopicById(@Param("topicId")String topicId);
     public Integer insertTopicDetail(@Param("topic")Topic topic);
     public Integer insertTopicTeacher(@Param("topic")Topic topic);
-    public Integer deleteStudentTopic(@Param("userId")String userId,@Param("topicId")String topicId);
+    public Integer deleteStudentTopic(@Param("userId")String userId);
     public Integer updateStudentSignal(@Param("selectedSignal")String selectedSignal,@Param("userId")String userId);
     public Integer insertStudentTopic(@Param("userId")String userId,@Param("topicId")String topicId);
     public List<StudentAndTopic> findStudentForInsert();

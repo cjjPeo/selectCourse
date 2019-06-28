@@ -12,7 +12,7 @@ public interface TeacherService {
     public void insertDataFromExcel(List<Topic> topics);
     public Integer insertOneTopic(Topic topic);
     public Integer updateStudentTopic(String topicId,String userId);
-    public Integer deleteStudentTopic(String userId,String topicId);
+    public Integer deleteStudentTopic(String userId);
     public Integer insertStudentToTopic(String userId,String topicId);
     public List<StudentAndTopic> findStudentToTopic();
 }

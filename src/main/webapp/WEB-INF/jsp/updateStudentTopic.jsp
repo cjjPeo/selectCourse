@@ -21,11 +21,13 @@
         <td>操作</td>
     </tr>
     <c:forEach items="${courseList}" var="it">
-        <td>${it.topicId}</td>
+       <tr>
+           <td>${it.topicId}</td>
         <td>${it.topicName}</td>
         <td>${it.demand}</td>
         <td>${it.majorLimit}</td>
         <td><a href="${pageContext.request.contextPath}/teacher/updateStudentTopic.action?topicId=${it.topicId}&userId=${userId}">添加进该课程</a> </td>
+       </tr>
     </c:forEach>
 </table>
 </body>
