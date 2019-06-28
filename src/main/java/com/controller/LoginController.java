@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -25,8 +26,10 @@ public class LoginController {
     private StudentChooseService studentChooseService;
     //跳转到登录的页面
     @RequestMapping(value = "gologin.action")
-    public String findLoginPage(){
-        return "login";
+    public ModelAndView findLoginPage(){
+        ModelAndView model=new ModelAndView();
+        model.setViewName("login");
+        return model;
     }
     //登录页面刷新
     @RequestMapping(value = "register.action",method = RequestMethod.GET)

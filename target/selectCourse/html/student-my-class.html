@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的课程</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../../idea-project/layui/css/layui.css">
+    <link rel="stylesheet" href="../../../idea-project/css/card.css">
+
+</head>
+<body>
+    <div class="layui-card" >
+        <div class="layui-card-header"><span class="card-title">校园二手商品买卖系统</span></div>
+        <div class="layui-card-body" >
+            <div class="myClass" style="line-height:2em;">
+                <div>课题名称：<span>5101综合设计选题系统</span></div>
+                <div>发布教师：<span>李国胜</span></div>
+                <div>学生限制：<span>1个服务器方向，1个前端方向</span></div>
+                <div>课题内容：<span>系统分为教师用户、学生用户、管理员用户；教师用户完成选题的管理功能、选题学生的管理功能，密码修改等功能；学生用户完成题目的浏览功能、题目选择功能、密码修改功能；管理用户完成教师的管理、学生的管理、题目的管理、统计、报表等功能，具体咨询出题老师</span></div>
+                <div>课题期限：<span>6.30</span></div>
+                <br>
+                <button  class="layui-btn layui-btn-normal delClass">删除课程</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="../../../idea-project/layui/layui.js"></script>
+    <script>
+        layui.use(['jquery','layer'],function () {
+            var $ =layui.jquery;
+            var layer = layui.layer;
+
+            $(".delClass").click(function () {
+                layer.confirm('确定删除这门课吗', {
+                    btn: ['确定','取消'] //按钮
+                }, function(){
+                    layer.msg('课程删除成功', {icon: 1});
+                }, function(){
+                });
+            });
+
+        });
+    </script>
+</html>

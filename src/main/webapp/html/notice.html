@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>同通知公告</title>
+    <link rel="stylesheet" href="../../idea-project/layui/css/layui.css">
+    <link rel="stylesheet" href="../../idea-project/css/normal.css">
+</head>
+
+<body>
+<blockquote class="layui-elem-quote layui-bg-green new ">
+    <div class="new">
+        第一条系统公告
+        <div class="fr del-a"><i class="layui-icon layui-icon-close close" ></i></div>
+    </div>
+</blockquote>
+<blockquote class="layui-elem-quote layui-bg-green new">
+    <div class="new">
+        第二条系统公告
+        <div class="fr del-a"><i class="layui-icon layui-icon-close close" ></i></div>
+    </div>
+</blockquote>
+<div class="add-new">
+    <button class="layui-btn layui-btn-normal " id="add-new">新的发布</button>
+</div>
+
+<script src="../../idea-project/layui/layui.js"></script>
+<script>
+    layui.use(['jquery','layer'],function () {
+        var $ =layui.jquery;
+        var layer = layui.layer;
+
+
+        //添加公告
+        $('#add-new').click(function () {
+
+            layer.prompt({
+                formType: 2,
+                value: '请输入新的公告',
+                title: '新的公告',
+                area: ['350px', '150px'] //自定义文本域宽高
+            }, function(value, index, elem){
+                alert(value); //得到value
+                layer.close(index);
+            });
+
+        });
+        //删除公告
+        $(".del-a").click(function () {
+            $(this).parent().parent().addClass("hide");
+        });
+
+
+    });
+</script>
+</body>
+</html>

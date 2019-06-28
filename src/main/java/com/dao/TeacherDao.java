@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface TeacherDao {
-    public List<Excel> findSelectByTeacher(@Param("userId")String userId,@Param("releaseSingal")String releaseSingal);
+    public List<Excel> findSelectByTeacher(@Param("userId")String userId,@Param("releaseSignal")String releaseSignal);
     public Integer findTopicById(@Param("topicId")String topicId);
     public Integer insertTopicDetail(@Param("topic")Topic topic);
     public Integer insertTopicTeacher(@Param("topic")Topic topic);

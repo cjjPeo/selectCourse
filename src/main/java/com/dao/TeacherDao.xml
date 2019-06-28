@@ -11,8 +11,8 @@
             <if test="userId != null and userId !=null">
                 tt.userId=#{userId}
             </if>
-            <if test="releaseSingal != null and releaseSingal!=''">
-                t1.releaseSingal=#{releaseSingal}
+            <if test="releaseSignal != null and releaseSignal!=''">
+                and t1.releaseSingal=#{releaseSignal}
             </if>
         </where>
     </select>

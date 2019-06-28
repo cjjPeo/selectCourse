@@ -1,0 +1,66 @@
+
+.new {
+    border-radius: 5px;
+}
+
+.del-a {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.del-a i:hover {
+    font-size: 22px;
+    transition: all 0.2s;
+}
+
+.del-a .close {
+    font-size: 18px;
+    font-weight: bold
+}
+
+.add-new {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+}
+
+#search-input {
+    background-image: url("../img/搜索.svg");
+    background-repeat: no-repeat;
+    background-position: 5px 10px;
+    background-size:10%;
+    padding-left: 28px;
+}
+#search-input {
+    height: 40px;
+    width: 200px;
+    float: left;
+    border-radius: 5px;
+}
+#search-button {
+    margin-left: 10px;
+    border-radius: 5px;
+}
+
+.btn-select .change {
+    margin-left: 10px;
+}
+.hide {
+    display: none;
+}
+
+.course-require {
+    width: 100%;
+    height: 100px;
+}
+.layui-form-item .course-submit {
+    margin-left: 74px;
+}
+.layui-form-item .course-submit {
+    margin-left: 74px;
+}
+
+#file-up {
+    display: none;
+}

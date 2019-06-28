@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>课程信息</title>
+    <link rel="stylesheet" href="../../../idea-project/layui/css/layui.css">
+    <link rel="stylesheet" href="../../../idea-project/css/public.css">
+    <link rel="stylesheet" href="../../../idea-project/css/normal.css">
+</head>
+<body>
+课程信息
+<div class="demoTable">
+    <div class="layui-form-item">
+        <form class="layui-form">
+            <div class="layui-form-item">
+                <input type="text" class="layui-input" id="search-input">
+                <button class="layui-btn " id="search-button"  lay-filter="login" lay-submit>查询</button>
+                <span class="fr">
+                    <label class="layui-btn layui-btn-sm layui-btn-normal" for="file-up" >导入课程信息</label>
+                    <input type="file" id="file-up">
+                </span>
+            </div>
+            <div class="layui-form-item input-item">
+                <input type="radio" name="id" value="t1" title="课程" checked>
+                <input type="radio" name="id" value="t2" title="教师" >
+                <input type="radio" name="id" value="t3" title="方向" >
+            </div>
+        </form>
+    </div>
+    <button class="layui-btn layui-btn-sm layui-btn-normal close" style="float: right;">结束选课</button>
+
+</div>
+<table class="layui-hide" id="table" lay-filter="test"></table>
+<div class="layui-col-md12" >
+    <div style=" margin: 0 auto;width: 410px;" id="page"></div>
+</div>
+
+<script type="text/html" id="toolbarDemo">
+
+</script>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+
+<script src="../../../idea-project/layui/layui.js"></script>
+<script>
+    //JavaScript代码区域
+
+    layui.use(['form','jquery','layer','table','element','laypage'],function () {
+        var form =layui.form;
+        var $ = layui.jquery;
+        var table = layui.table;
+        var layer = layui.layer;
+        var element = layui.element;
+        var laypage = layui.laypage;
+
+        table.render({
+            elem: '#table'
+            ,url:'../../json/user.json'
+            ,toolbar: '#toolbarDemo'
+            ,height:430
+            ,title: '用户数据表'
+            ,cols: [[
+                {type:'checkbox',width:80}
+                ,{field:'id', width:80, title: 'ID', sort: true}
+                ,{field:'username', width:80, title: '姓名',edit:'text'}
+                ,{field:'sex', width:80, title: '性别'}
+                ,{field:'major', width:80, title: '专业'}
+                ,{field:'course', title: '方向', width: '20%', minWidth: 100} //minWidth：局部定义当前单元格的最小宽度
+                ,{field:'telephone', title: '联系方式'}
+                ,{field:'state', title: '选课状态', sort: true}
+                ,{field:'other', title: '其他'}
+                ,{width:150,title:'操作',fixed:'right',toolbar:'#barDemo'}
+            ]]
+        });
+
+        //分页
+        laypage.render({
+            elem: 'page'
+            ,count: 70 //数据总数，从服务端得到
+            ,jump: function(obj, first){
+                //obj包含了当前分页的所有参数，比如：
+                console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                console.log(obj.limit); //得到每页显示的条数
+                //首次不执行
+                if(!first){
+                    //do something
+                }
+            }
+        });
+
+        //头工具栏事件
+        table.on('toolbar(test)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch(obj.event){
+                case 'getCheckData':
+                    var data = checkStatus.data;
+                    layer.alert(JSON.stringify(data));
+                    break;
+                case 'getCheckLength':
+                    var data = checkStatus.data;
+                    layer.msg('选中了：'+ data.length + ' 个');
+                    break;
+                case 'isAll':
+                    layer.msg(checkStatus.isAll ? '全选': '未全选');
+                    break;
+            };
+        });
+
+        //监听行工具事件
+        table.on('tool(test)', function(obj){
+            var data = obj.data;
+            //console.log(obj)
+            if(obj.event === 'del'){
+                layer.confirm('真的删除行么', function(index){
+                    obj.del();
+                    layer.close(index);
+                });
+            } else if(obj.event === 'edit'){
+                layer.prompt({
+                    formType: 2
+                    ,value: data.email
+                }, function(value, index){
+                    obj.update({
+                        email: value
+                    });
+                    layer.close(index);
+                });
+            }
+        });
+
+        $(".close").click(function () {
+            $(this).toggleClass("layui-btn-normal");
+            if($(this).hasClass("layui-btn-normal")){
+                $(this).text("结束选课");
+            }else{
+                $(this).text("开放选课");
+            }
+        });
+
+    });
+</script>
+</body>
+</html>

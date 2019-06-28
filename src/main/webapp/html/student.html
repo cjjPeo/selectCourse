@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>学生端-5101在线选课系统</title>
+    <link rel="shortcut icon" href="../../../idea-project/img/favicon.ico">
+    <link rel="stylesheet" href="../../../idea-project/layui/css/layui.css">
+    <link media="(max-width: 600px)" rel="stylesheet" href="../../../idea-project/css/mobile.css">
+
+</head>
+
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo l-logo" style="font-size: 20px;">5101在线选课系统</div>
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item xt"><a href="student-course-list.html" target="right" >学生系统</a></li>
+        </ul>
+
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="../../../idea-project/img/01.jpg" class="layui-nav-img">
+                    用户
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="userInfo.html" target="right"><i class="layui-icon layui-icon-username"></i>&nbsp;<cite>个人资料</cite></a></dd>
+                    <dd><a href="change-password.html" target="right"><i class="layui-icon layui-icon-refresh"></i>&nbsp;<cite>修改密码</cite></a></dd>
+                    <dd><a href="notice.html" target="right"><i class="layui-icon layui-icon-speaker"></i>&nbsp;<cite>系统公告</cite></a></dd>
+                    <dd><a href="login.html"><i class="layui-icon layui-icon-return"></i>&nbsp;<cite>退出</cite></a></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black" >
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+                <li class="layui-nav-item"><a href="student-course-list.html" target="right">
+                    <img src="../../../idea-project/img/主页.svg" style="width: 20px;height: 20px;">&nbsp;&nbsp;课程列表
+                </a></li>
+                <li class="layui-nav-item"><a href="student-my-class.html" target="right">
+                    <img src="../../../idea-project/img/课程.svg" style="width: 20px;height: 20px;">&nbsp;&nbsp;我的课程
+                </a></li>
+                <li class="layui-nav-item"><a href="student-my-group.html" target="right">
+                    <img src="../../../idea-project/img/小组.svg" style="width: 20px;height: 20px;">&nbsp;&nbsp;我的小组
+                </a></li>
+                <li class="layui-nav-item"><a href="#">
+                    <img src="../../../idea-project/img/更多.svg" style="width: 20px;height: 20px;">&nbsp;&nbsp;更多
+                </a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body" style="background: #F2F2F2;">
+        <!-- 内容主体区域 -->
+        <div style="padding: 10px;">
+            <iframe src="student-course-list.html" name="right" frameborder="0" width="100%" height="700px">
+            </iframe>
+        </div>
+    </div>
+
+    <!-- 显示/隐藏菜单 -->
+    <div class="site-tree-mobile" ><i class="layui-icon layui-icon-right"></i></div>
+    <div class="site-mobile-shade"></div>
+
+    <div class="layui-footer" style="width:100%;">
+        <!-- 底部固定区域 -->
+        底部固定区域
+    </div>
+</div>
+<script src="../../../idea-project/layui/layui.js"></script>
+<script src="../../../idea-project/js/side-hide.js"></script>
+<script>
+    //JavaScript代码区域
+    layui.use(['element','jquery'], function(){
+        var element = layui.element;
+        var $ = layui.jquery;
+
+    });
+</script>
+</body>
+</html>

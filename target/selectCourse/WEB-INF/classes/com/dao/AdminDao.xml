@@ -32,8 +32,6 @@
         </where>
     </update>
 
-    <!--
-    课程
-    <select id="findCourses" parameterType="String" resultType=""></select>
-    -->
+    <!--课程-->
+    <!--<select id="findCourses" parameterType="String" resultType=""></select>-->
 </mapper>

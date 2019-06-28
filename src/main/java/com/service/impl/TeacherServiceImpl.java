@@ -16,8 +16,8 @@ import java.util.List;
 public class TeacherServiceImpl implements TeacherService {
     @Autowired
     private TeacherDao teacherDao;
-    public List<Excel> findSelectByTeacher(String userId,String releaseSingal){
-        return this.teacherDao.findSelectByTeacher(userId,releaseSingal);
+    public List<Excel> findSelectByTeacher(String userId,String releaseSignal){
+        return this.teacherDao.findSelectByTeacher(userId,releaseSignal);
     }
     public Integer findTopicById(String topicId){
         return this.teacherDao.findTopicById(topicId);
