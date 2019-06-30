@@ -15,6 +15,7 @@ public interface StudentChooseDao {
     public Integer findMyTopicCount(@Param("userId")String userId);
 
     public Topic findMyTopic(@Param("userId") String userId);
+    Integer optTopic2(@Param("userId")String userId);
 
     public int deleteMychoose(@Param("userId") String userId);
 }

@@ -55,10 +55,10 @@
             <label class="layui-form-label">课题容量</label>
             <div class="layui-input-block " style="width: 50px;">
                 <select name="person-limit" id="numberLimit">
-                    <option value="0">1</option>
-                    <option value="1">2</option>
-                    <option value="1">3</option>
-                    <option value="1">4</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
                 </select>
             </div>
 
@@ -90,15 +90,19 @@
             var majorLimit=$("#majorLimit").val();
             var numberLimit=$("#numberLimit").val();
             var demand=$("#demand").val();
+            console.log(topicId+","+topicName+","+majorLimit+","+numberLimit+","+demand)
             $.ajax({
                 url:"<%=basePath%>teacher/insertOneTopic.action",
                 type:'post',
                 data:{topicId:topicId,topicName:topicName,majorLimit:majorLimit,numberLimit:numberLimit,demand:demand},
                 success:function (data) {
                     alert(data);
+                    console.log(data)
+                    window.location.reload();
+
                 }
             })
-            parent.layer.close(index);
+            /*parent.layer.close(index);*/
         });
         $(".layui-btn-primary").click(function () {
             var index = parent.layer.getFrameIndex(window.name); //获取窗口索引

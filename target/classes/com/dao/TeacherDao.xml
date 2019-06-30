@@ -58,9 +58,13 @@
      	where topicId=#{topic.topicId}
      </update>
 
-    <delete id="deleteTopic" parameterType="String">
-     	delete from topic where topicId=#{topicId};
-     	delete from topic_teacher where topicId=#{topicId};
+    <delete id="deleteTopicInTopic" parameterType="String">
+     	delete from topic where topicId=#{topicId}
+     </delete>
+    <delete id="deleteTopicInToTea" parameterType="String">
+     	delete from topic_teacher where topicId=#{topicId}
+     </delete>
+    <delete id="deleteTopicInChoose" parameterType="String">
      	delete from choose where topicId=#{topicId}
      </delete>
 </mapper>

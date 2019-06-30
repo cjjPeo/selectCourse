@@ -60,6 +60,7 @@ public class StudentChooseController {
         model.addAttribute("userId",userId);
         return "sss";
     }
+
     @RequestMapping("optTopic.action")
     @ResponseBody
     public String topicOpt(String userId,String topicId) {

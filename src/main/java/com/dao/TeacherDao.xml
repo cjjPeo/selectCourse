@@ -16,6 +16,9 @@
             </if>
         </where>
     </select>
+    <select id="findStudentTopic" parameterType="String" resultType="studentAndTopic">
+        select *
+    </select>
     <select id="findTopicById" parameterType="String" resultType="Integer">
         select count(*) from topic where topicId=#{topicId}
     </select>
@@ -39,14 +42,19 @@
         insert into choose values (#{userId},#{topicId})
     </insert>
     <!--查找添加进课程的学生，不管是否已经选课，不管老师-->
-    <select id="findStudentForInsert" resultType="studentAndTopic">
+    <select id="findStudentForInsert" parameterType="String" resultType="studentAndTopic">
         select l.userId,u1.studentName,u1.majorIn,l.userState,u1.selectedSignal,u1.topicId,u1.topicName,u1.demand,u1.teacherId,u1.teacherName from login l
         left join (select u.userId,u.userName as studentName,u.majorIn,u.selectedSignal,c1.topicId,c1.topicName,c1.demand,c1.teacherId,c1.userName as teacherName from users u
             left join (select c.userId,t.teacherId,t.topicId,t.topicName,t.demand,t.userName from choose c
             left join (select t1.topicId,t1.topicName,t1.demand,t2.userId as teacherId,t2.userName from topic t1
             left  join (select tt.userId,tt.topicId,t3.userName from topic_teacher tt
             left  join (select userId,userName from users)t3 on tt.userId=t3.userId)t2 on t2.topicId=t1.topicId)t on c.topicId=t.topicId)c1 on c1.userId=u.userId)u1 on u1.userId=l.userId
-        where userState='user'
+        <where>
+            <if test="userId!=null and userId!=''">
+                    teacherId=#{teacherId}
+            </if>
+            and userState='user'
+        </where>
     </select>
     <select id="findOneTopic" parameterType="String" resultType="topic">
         select * from topic where topicId=#{topicId}
@@ -58,9 +66,13 @@
      	where topicId=#{topic.topicId}
      </update>
 
-    <delete id="deleteTopic" parameterType="String">
-     	delete from topic where topicId=#{topicId};
-     	delete from topic_teacher where topicId=#{topicId};
+    <delete id="deleteTopicInTopic" parameterType="String">
+     	delete from topic where topicId=#{topicId}
+     </delete>
+    <delete id="deleteTopicInToTea" parameterType="String">
+     	delete from topic_teacher where topicId=#{topicId}
+     </delete>
+    <delete id="deleteTopicInChoose" parameterType="String">
      	delete from choose where topicId=#{topicId}
      </delete>
 </mapper>

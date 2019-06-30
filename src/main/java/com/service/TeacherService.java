@@ -15,7 +15,7 @@ public interface TeacherService {
     public Integer updateStudentTopic(String topicId,String userId);
     public Integer deleteStudentTopic(String userId);
     public Integer insertStudentToTopic(String userId,String topicId);
-    public List<StudentAndTopic> findStudentToTopic();
+    public List<StudentAndTopic> findStudentToTopic(String userId);
     Topic findOneTopic(String topicId);
 
     public int editThistopic(Topic topic);

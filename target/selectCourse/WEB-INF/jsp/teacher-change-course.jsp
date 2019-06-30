@@ -54,7 +54,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label">课题容量</label>
             <div class="layui-input-block " style="width: 50px;">
-                <select name="person-limit" value="${topic.numberLimit}" id="numberLimit">
+                <select name="person-limit"  id="numberLimit">
+                    <option value="${topic.numberLimit}">${topic.numberLimit}</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -66,7 +67,9 @@
         <div class="layui-form-item">
             <label class="layui-form-label">课程要求</label>
             <div class="layui-input-block">
-                <textarea type="text" class="layui-input course-require" lay-verify="required" value="${topic.demand}" id="demand"></textarea>
+                <textarea type="text" class="layui-input course-require" lay-verify="required" id="demand">${topic.demand}</textarea>
+                <input type="text" id="selectedSignal" value="${topic.releaseSingal}" hidden>
+                <input type="text" id="topicYear" value="${topic.topicYear}" hidden>
             </div>
         </div>
         <div class="layui-form-item">
@@ -92,13 +95,15 @@
             var majorLimit=$("#majorLimit").val();
             var numberLimit=$("#numberLimit").val();
             var demand=$("#demand").val();
+            var selectedSignal=$("#selectedSignal").val();
+            var topicYear=$("#topicYear").val();
             $.ajax({
                 url:'<%=basePath%>teacher/editThistopic.action',
                 type:'get',
-                data:{topicId:topicId,topicName:topicName,majorLimit:majorLimit,numberLimit:numberLimit,demand:demand},
+                data:{topicId:topicId,topicName:topicName,majorLimit:majorLimit,numberLimit:numberLimit,demand:demand,selectedSignal:selectedSignal,topicYear:topicYear},
                 success:function (data) {
                     alert(data);
-                    window.location.reload();
+                    location.href="<%=basePath%>teacher/teacher-my-course.action";
                     /*layer.msg('课程添加成功', {icon: 1});*/
                 }
             });

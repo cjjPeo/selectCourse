@@ -20,6 +20,12 @@
     <title>课程选择情况</title>
     <link rel="stylesheet" href="<%=basePath%>layui/css/layui.css">
     <link rel="stylesheet" href="<%=basePath%>css/normal.css">
+    <script>
+        function submitform(){
+            document.form01.action="${pageContext.request.contextPath}/teacher/uploadData.action";
+            document.form01.submit();
+        }
+    </script>
 </head>
 
 <body>
@@ -30,18 +36,69 @@
     <div class="layui-form-item">
         <input type="text" class="layui-input" id="search-input">
         <button class="layui-btn" id="search-button" >查询</button>
+        <a href="${pageContext.request.contextPath }/teacher/downloadModel.action?filename=数据导入模板.xls" class="layui-btn">下载模板</a>
+        <input type="text" id="moduleName" value="数据导入模板.xls" hidden>
+        <button type="button" class="layui-btn layui-btn-sm layui-btn-normal close" style="float: right;">结束选课</button>
+        <span class="fr">
+             <form name="form01" method="post" enctype= "multipart/form-data">
+                    <input type="hidden" name="xx" value="1" />
+                    <label class="layui-btn layui-btn-sm layui-btn-normal" for="file-up" >导入课程信息</label>
+                    <input type= "file" name="upfile" onchange="submitform()" id="file-up" />
+                </form>
+                    <%--<label class="layui-btn layui-btn-sm layui-btn-normal" for="file-up" >导入课程信息</label>
+                    <input type="file" id="file-up">--%>
+        </span>
     </div>
 
-    <table class="layui-hide" id="table" lay-filter="test"></table>
+ <%--   <table class="layui-hide" id="table" lay-filter="test"></table>--%>
     <div class="layui-col-md12" >
+        <div class="table">
+            <table class="layui-table">
+                <colgroup>
+                    <col width="150">
+                    <col width="100">
+                    <col width="100">
+                    <col width="100">
+                    <col width="150">
+                    <col width="150">
+                    <col width="150">
+                    <col width="150">
+                    <col width="200">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>课题编号</th>
+                    <th>要求</th>
+                    <th>学号</th>
+                    <th>姓名</th>
+                    <th>方向</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach items="${studentList}" var="it">
+                <tr>
+                    <td>${it.topicId}</td>
+                    <td>${it.demand}</td>
+                    <td>${it.userId}</td>
+                    <td>${it.studentName}</td>
+                    <td>${it.majorIn}</td>
+                    <td>
+                        <a class="layui-btn layui-btn-xs edit" >编辑</a>
+                        <a class="layui-btn layui-btn-xs layui-btn-danger del" href="${pageContext.request.contextPath }/teacher/deleteStudentFromThisTopic.action?userId=${it.userId}&topicId=${it.topicId}">删除</a>
+                    </td>
+                </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
         <div style=" margin: 0 auto;width: 410px;" id="page"></div>
     </div>
 </div>
-<script type="text/html" id="toolbarDemo">
+<%--<script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
-
     </div>
-</script>
+</script>--%>
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">调整</a>
@@ -60,7 +117,6 @@
         var layer = layui.layer;
         var element = layui.element;
         var laypage = layui.laypage;
-
         table.render({
             elem: '#table'
             ,url:'<%=basePath%>json/teacher-class.json'

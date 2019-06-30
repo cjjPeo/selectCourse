@@ -50,6 +50,7 @@ public class StudentChooseServiceImpl implements StudentChooseService {
         if (i>0){
             return 0;
         }
+        this.studentChooseDao.optTopic2(userId);
         return studentChooseDao.optTopic(userId, topicId);
     }
 

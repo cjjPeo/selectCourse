@@ -48,7 +48,7 @@
             <div class="layui-card"  >
                 <div class="layui-card-header"><span class="card-title">${its.topicName}</span><span class="fr"></span></div>
                 <div class="layui-card-body" >
-                    <input type="text" id="topicId" value="111" hidden>
+                    <input type="text" id="topicId" value="${its.topicId}" hidden>
                     <input type="text" id="userId" value="${USER_SESSION.userId}" hidden>
                     <p>招募${its.numberLimit}人：${its.majorLimit}</p>
                 </div>
@@ -99,11 +99,12 @@
         //删除
         $(".del").click(function () {
             var topicId=$(this).parent().prev().prev().children(":first").val();
+            console.log(topicId+"djidj");
             layer.confirm('确定删除吗', {
                 btn: ['确定','取消'], //按钮
                 yes:function () {
                     $.ajax({
-                        url:'<%=basePath%>studentChoose/optTopic.action',
+                        url:'<%=basePath%>teacher/deleteTopic.action',
                         type:'get',
                         data:{topicId:topicId},
                         success:function (data) {

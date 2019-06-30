@@ -49,6 +49,13 @@ public class TeacherController {
         }
         return "sss";
     }
+    @RequestMapping(value = "teacher-select-list.action")
+    public  String teacher5(HttpSession session,Model model){
+        Login login=(Login)session.getAttribute("USER_SESSION");
+        List<StudentAndTopic> list=this.teacherService.findStudentToTopic(login.getUserId());
+        model.addAttribute("studentList",list);
+        return  "teacher-select-list";
+    }
 //导出表格
     @RequestMapping(value = "outPutExcel.action")
     public void download(HttpServletResponse response, HttpSession session,Model model) throws IOException {
@@ -115,6 +122,7 @@ public class TeacherController {
     //下载数据导入模板
     @RequestMapping("downloadModel.action")
     public ResponseEntity<byte[]> fileDownload(HttpServletRequest request,@RequestParam("filename") String filename) throws Exception{
+        System.out.println(filename);
         String path=request.getServletContext().getRealPath("/upload/");
         File file=new File(path+File.separator+filename);
         filename=this.getFilename(request,filename);
@@ -243,7 +251,7 @@ public class TeacherController {
         Integer sign=this.teacherService.findTopicById(topicId);
         if(sign>0){
             model.addAttribute("msg","该课程号已经存在");
-            return "insertOneT";
+            return "FAIL";
         }
         Login login=(Login)session.getAttribute("USER_SESSION");
         String userId=login.getUserId();
@@ -362,7 +370,7 @@ public class TeacherController {
     @RequestMapping(value = "findStudentToTopic.action")
     public String findStudentToTopic(String topicId,Model model){
         model.addAttribute("topicId",topicId);
-        List<StudentAndTopic> studentAndTopics=this.teacherService.findStudentToTopic();
+        List<StudentAndTopic> studentAndTopics=this.teacherService.findStudentToTopic("");
         System.out.println("find");
         model.addAttribute("AllUsers",studentAndTopics);
         return "afterInsertStudent";

@@ -82,11 +82,7 @@ public class LoginController {
     public  String teacher4(HttpSession session,Model model){
         return  "teacher-my-course";
     }
-    @RequestMapping(value = "teacher-select-list.action")
-    public  String teacher5(){
 
-        return  "teacher-select-list";
-    }
 
     @RequestMapping(value = "admin.action")
     public  String admin1(){

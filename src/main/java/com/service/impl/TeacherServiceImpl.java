@@ -74,8 +74,8 @@ public class TeacherServiceImpl implements TeacherService {
     }
     //查找全部的学生，如果有课程的话，包含课程信息和负责老师的id和名字
     @Override
-    public List<StudentAndTopic> findStudentToTopic() {
-        return this.teacherDao.findStudentForInsert();
+    public List<StudentAndTopic> findStudentToTopic(String userId) {
+        return this.teacherDao.findStudentForInsert(userId);
     }
 
     @Override
@@ -100,6 +100,11 @@ public class TeacherServiceImpl implements TeacherService {
     }
     @Override
     public int deleteTopic(String topicId) {
-        return teacherDao.deleteTopic(topicId);
+       Integer i=this.teacherDao.deleteTopicInToTea(topicId);
+       Integer i1=this.teacherDao.deleteTopicInChoose(topicId);
+       Integer i2=this.teacherDao.deleteTopicInTopic(topicId);
+          if (i>0&&i2>0)
+           return 1;
+          else  return 0;
     }
 }

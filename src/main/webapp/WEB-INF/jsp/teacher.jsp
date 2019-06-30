@@ -59,7 +59,7 @@
                 <li class="layui-nav-item "><a href="${pageContext.request.contextPath}/teacher/teacher-my-course.action" target="right">
                     <img src="<%=basePath%>img/课程.svg" style="width: 20px;height: 20px;">&nbsp;&nbsp;我的课程
                 </a></li>
-                <li class="layui-nav-item "><a href="${pageContext.request.contextPath}/login/teacher-select-list.action" target="right">
+                <li class="layui-nav-item "><a href="${pageContext.request.contextPath}/teacher/teacher-select-list.action" target="right">
                     <img src="<%=basePath%>img/名称-完成情况.svg" style="width: 20px;height: 20px;">&nbsp;&nbsp;选课情况
 
                 </a></li>

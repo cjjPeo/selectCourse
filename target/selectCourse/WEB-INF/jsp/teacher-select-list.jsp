@@ -30,18 +30,69 @@
     <div class="layui-form-item">
         <input type="text" class="layui-input" id="search-input">
         <button class="layui-btn" id="search-button" >查询</button>
+        <%--<button class="layui-btn" id="download-button" >下载模板</button>--%>
+        <a href="${pageContext.request.contextPath }/teacher/downloadModel.action?filename=数据导入模板.xls" class="layui-btn">下载模板</a>
+        <input type="text" id="moduleName" value="数据导入模板.xls" hidden>
+        <button type="button" class="layui-btn layui-btn-sm layui-btn-normal close" style="float: right;">结束选课</button>
+        <span class="fr">
+                    <label class="layui-btn layui-btn-sm layui-btn-normal" for="file-up" >导入课程信息</label>
+                    <input type="file" id="file-up">
+        </span>
     </div>
 
-    <table class="layui-hide" id="table" lay-filter="test"></table>
+ <%--   <table class="layui-hide" id="table" lay-filter="test"></table>--%>
     <div class="layui-col-md12" >
+        <div class="table">
+            <table class="layui-table">
+                <colgroup>
+                    <col width="150">
+                    <col width="100">
+                    <col width="100">
+                    <col width="100">
+                    <col width="150">
+                    <col width="150">
+                    <col width="150">
+                    <col width="150">
+                    <col width="200">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>课题</th>
+                    <th>ID</th>
+                    <th>姓名</th>
+                    <th>性别</th>
+                    <th>专业</th>
+                    <th>方向</th>
+                    <th>联系方式</th>
+                    <th>备注</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>日常用品共享系统</td>
+                    <td>10006</td>
+                    <td>user</td>
+                    <td>女</td>
+                    <td>专业</td>
+                    <td>方向</td>
+                    <td>18800000000</td>
+                    <td>other</td>
+                    <td>
+                        <a class="layui-btn layui-btn-xs edit">编辑</a>
+                        <a class="layui-btn layui-btn-xs layui-btn-danger del">删除</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
         <div style=" margin: 0 auto;width: 410px;" id="page"></div>
     </div>
 </div>
-<script type="text/html" id="toolbarDemo">
+<%--<script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
-
     </div>
-</script>
+</script>--%>
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">调整</a>
@@ -60,6 +111,19 @@
         var layer = layui.layer;
         var element = layui.element;
         var laypage = layui.laypage;
+        
+        $("#download-button").click(function () {
+            console.log("11233")
+            var moduleName=$("#moduleName").val()
+            $.ajax({
+                url:'<%=basePath%>teacher/downloadModel.action',
+                type:'get',
+                data:{filename:moduleName},
+                success:function (data) {
+                    layer.msg("成功")
+                }
+            })
+        })
 
         table.render({
             elem: '#table'
