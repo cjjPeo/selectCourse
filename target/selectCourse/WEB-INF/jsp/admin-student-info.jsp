@@ -56,20 +56,20 @@
 
         table.render({
             elem: '#table'
-            ,url:'<%=basePath%>json/user.json'
+            ,url:'<%=basePath%>admin/StudentList.action'
             ,toolbar: '#toolbarDemo'
             ,height:430
-            ,title: '用户数据表'
+            ,title: '学生列表'
             ,cols: [[
                 {type:'checkbox',width:80}
-                ,{field:'id', width:80, title: 'ID', sort: true}
-                ,{field:'username', width:80, title: '姓名',edit:'text'}
-                ,{field:'sex', width:80, title: '性别'}
-                ,{field:'major', width:80, title: '专业'}
-                ,{field:'course', title: '方向', width: '20%', minWidth: 100} //minWidth：局部定义当前单元格的最小宽度
-                ,{field:'telephone', title: '联系方式'}
-                ,{field:'state', title: '选课状态', sort: true}
-                ,{field:'other', title: '其他'}
+                ,{field:'userId',title: '学生学号', width:80, title: 'ID', sort: true}
+                ,{field:'userName',title: '学生姓名', width:80, title: '姓名',edit:'text'}
+                ,{field:'gender', title: '性别',width:80, title: '性别'}
+                ,{field:'enterYear', title: '年份',width:80, title: '专业'}
+                ,{field:'className', title: '班级名称', width: '20%', minWidth: 100} //minWidth：局部定义当前单元格的最小宽度
+                ,{field:'majorIn', title: '专业方向'}
+                ,{field:'selectedSignal', title: '选课标志', sort: true}
+                ,{field:'userState', title: '学生身份'}
                 ,{width:150,title:'操作',fixed:'right',toolbar:'#barDemo'}
             ]]
         });
@@ -113,18 +113,44 @@
             //console.log(obj)
             if(obj.event === 'del'){
                 layer.confirm('真的删除行么', function(index){
-                    obj.del();
+                   /* obj.del();*/
+                    var ajax = new jqajax();
+                    ajax.options.method = 'POST';
+                    ajax.options.contentType="application/json;charset=UTF-8";
+                    ajax.options.url = "<%=basePath%>admin/eleteStu.action?userId="+$(this).prev().prev().prev().val();
+                    ajax.options.data = obj.data;
+                    ajax.ajax(ajax.options);
+                    ajax.complete = function (ret, options) {
+                        if (ret.httpCode == 200) {
+                            layer.msg("删除成功!");
+                            layer.close(index);//关闭弹窗
+                            //刷新表格 tableId表格id
+                            layui.table.reload('taskTable',{page:{curr:1}});
+                        }else {
+                            layer.msg("删除失败!");
+                        }
+                    };
                     layer.close(index);
                 });
             } else if(obj.event === 'edit'){
+                //获取
+               var userName,className,majorIn,userId
                 layer.prompt({
                     formType: 2
                     ,value: data.email
                 }, function(value, index){
-                    obj.update({
+                   /* obj.update({
                         email: value
                     });
-                    layer.close(index);
+                    layer.close(index);*/
+                    $.ajax({
+                        type:'post',
+                        url:'<%=basePath%>admin/editStu.action',
+                        data:{userName:userName,className:className,majorIn:majorIn,userId:userId},
+                        success:function (data) {
+                            lay.msg(data);
+                        }
+                    });
                 });
             }
         });

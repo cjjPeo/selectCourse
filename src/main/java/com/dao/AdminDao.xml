@@ -53,7 +53,7 @@
         update topic set (topicName,topicYear,demand,numberLimit,majorLimit,deadline,releaseSingal) values(#{topicName},#{topicYear},#{demand},#{numberLimit},#{majorLimit},#{deadline},#{releaseSingal}) where topicId=#{topicId}
     </update>
 
-    <delete id="deleteCourseAt" parameterMap="String">
+    <delete id="deleteCourseAt" parameterType="String">
         delete from topic where topicId=#{topicId};
         delete from topic_teacher where topicId=#{topicId}
     </delete>

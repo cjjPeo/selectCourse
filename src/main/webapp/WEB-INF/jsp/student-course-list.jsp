@@ -136,7 +136,7 @@ console.log($(this).parent().prev().children(":first").val())
                 btn: ['确定','取消'] ,//按钮
                 yes:function () {
                     $.ajax({
-                        url:'<%=basePath%>teacher/optTopic.action',
+                        url:'<%=basePath%>studentChoose/optTopic.action',
                         type:'get',
                         data:{topicId:topicId,userId:userId},
                         success:function (data) {

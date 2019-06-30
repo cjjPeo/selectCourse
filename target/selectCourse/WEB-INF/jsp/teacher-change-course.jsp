@@ -33,26 +33,32 @@
 <div class="" style="padding: 20px;">
     <form class="layui-form linksAdd">
         <div class="layui-form-item">
+            <label class="layui-form-label">课题编号</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input courser-name" lay-verify="required" placeholder="请输入课程编号" value="${topic.topicId}" id="topicId" readonly />
+            </div>
+        </div>
+        <div class="layui-form-item">
             <label class="layui-form-label">课题名称</label>
             <div class="layui-input-block">
-                <input type="text" class="layui-input courser-name" lay-verify="required" placeholder="请输入课程名称" value="" readonly/>
+                <input type="text" class="layui-input courser-name" lay-verify="required" placeholder="请输入课程名称" value="${topic.topicName}" id="topicName"/>
             </div>
         </div>
 
         <div class="layui-form-item">
             <label class="layui-form-label">课题限制</label>
             <div class="layui-input-block">
-                <input type="text" class="layui-input courser-limit" lay-verify="required" placeholder="请输入课程容量" />
+                <input type="text" class="layui-input courser-limit" lay-verify="required" placeholder="请输入课程限制" value="${topic.majorLimit}" id="majorLimit"/>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">课题容量</label>
             <div class="layui-input-block " style="width: 50px;">
-                <select name="person-limit" >
-                    <option value="0">1</option>
-                    <option value="1">2</option>
-                    <option value="1">3</option>
-                    <option value="1">4</option>
+                <select name="person-limit" value="${topic.numberLimit}" id="numberLimit">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
                 </select>
             </div>
 
@@ -60,7 +66,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">课程要求</label>
             <div class="layui-input-block">
-                <textarea type="text" class="layui-input course-require" lay-verify="required" ></textarea>
+                <textarea type="text" class="layui-input course-require" lay-verify="required" value="${topic.demand}" id="demand"></textarea>
             </div>
         </div>
         <div class="layui-form-item">
@@ -79,7 +85,26 @@
         var form = layui.form;
         var layer = layui.layer;
         var $ = layui.jquery;
-        $("button").click(function () {
+        $(".course-submit").click(function () {
+            var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+            var topicId=$("#topicId").val();
+            var topicName=$("#topicName").val();
+            var majorLimit=$("#majorLimit").val();
+            var numberLimit=$("#numberLimit").val();
+            var demand=$("#demand").val();
+            $.ajax({
+                url:'<%=basePath%>teacher/editThistopic.action',
+                type:'get',
+                data:{topicId:topicId,topicName:topicName,majorLimit:majorLimit,numberLimit:numberLimit,demand:demand},
+                success:function (data) {
+                    alert(data);
+                    window.location.reload();
+                    /*layer.msg('课程添加成功', {icon: 1});*/
+                }
+            });
+            parent.layer.close(index);
+        });
+        $(".layui-btn-primary").click(function () {
             var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
             parent.layer.close(index);
         });

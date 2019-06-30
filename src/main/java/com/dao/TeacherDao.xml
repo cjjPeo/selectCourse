@@ -48,7 +48,7 @@
             left  join (select userId,userName from users)t3 on tt.userId=t3.userId)t2 on t2.topicId=t1.topicId)t on c.topicId=t.topicId)c1 on c1.userId=u.userId)u1 on u1.userId=l.userId
         where userState='user'
     </select>
-    <select id="findOneTopic" parameterMap="String" resultType="topic">
+    <select id="findOneTopic" parameterType="String" resultType="topic">
         select * from topic where topicId=#{topicId}
     </select>
     <!-- 修改课题内容 -->

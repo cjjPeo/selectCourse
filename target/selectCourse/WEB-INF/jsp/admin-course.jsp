@@ -75,20 +75,20 @@
 
         table.render({
             elem: '#table'
-            ,url:'<%=basePath%>json/user.json'
+            ,url:'<%=basePath%>admin/findCourses.action'
             ,toolbar: '#toolbarDemo'
             ,height:430
-            ,title: '用户数据表'
+            ,title: '课程表'
             ,cols: [[
                 {type:'checkbox',width:80}
-                ,{field:'id', width:80, title: 'ID', sort: true}
-                ,{field:'username', width:80, title: '姓名',edit:'text'}
-                ,{field:'sex', width:80, title: '性别'}
-                ,{field:'major', width:80, title: '专业'}
-                ,{field:'course', title: '方向', width: '20%', minWidth: 100} //minWidth：局部定义当前单元格的最小宽度
-                ,{field:'telephone', title: '联系方式'}
-                ,{field:'state', title: '选课状态', sort: true}
-                ,{field:'other', title: '其他'}
+                ,{field:'topicId',title: '课程编号', width:80, title: 'ID', sort: true}
+                ,{field:'topicName',title: '课程名', width:80, title: '姓名',edit:'text'}
+                ,{field:'demand',title: '要求', width:80, title: '性别'}
+                ,{field:'majorLimit',title: '专业限制', width:80, title: '专业'}
+                ,{field:'numberLimit', title: '容量限制', width: '20%', minWidth: 100} //minWidth：局部定义当前单元格的最小宽度
+                ,{field:'releaseSingal', title: '发布状态'}
+                ,{field:'userId', title: '老师编号', sort: true}
+                ,{field:'userName', title: '老师姓名'}
                 ,{width:150,title:'操作',fixed:'right',toolbar:'#barDemo'}
             ]]
         });
@@ -132,7 +132,23 @@
             //console.log(obj)
             if(obj.event === 'del'){
                 layer.confirm('真的删除行么', function(index){
-                    obj.del();
+                    /*obj.del();*/
+                    var ajax = new jqajax();
+                    ajax.options.method = 'POST';
+                    ajax.options.contentType="application/json;charset=UTF-8";
+                    ajax.options.url = "<%=basePath%>admin/deleteCourses.action?topicId="+$(this).prev().prev().prev().val();
+                    ajax.options.data = obj.data;
+                    ajax.ajax(ajax.options);
+                    ajax.complete = function (ret, options) {
+                        if (ret.httpCode == 200) {
+                            layer.msg("删除成功!");
+                            layer.close(index);//关闭弹窗
+                            //刷新表格 tableId表格id
+                            layui.table.reload('taskTable',{page:{curr:1}});
+                        }else {
+                            layer.msg("删除失败!");
+                        }
+                    };
                     layer.close(index);
                 });
             } else if(obj.event === 'edit'){
@@ -140,10 +156,19 @@
                     formType: 2
                     ,value: data.email
                 }, function(value, index){
-                    obj.update({
+                    /*obj.update({
                         email: value
                     });
-                    layer.close(index);
+                    layer.close(index);*/
+                    var topicName,topicYear,demand,numberLimit,majorLimit,deadline,releaseSingal,topicId
+                    $.ajax({
+                        type:'post',
+                        url:'<%=basePath%>admin/updateTeacher.action',
+                        data:{topicName:topicName,topicYear:topicName,demand:demand,numberLimit:demand,majorLimit:majorLimit,deadline:deadline,releaseSingal:releaseSingal,topicId:topicId},
+                        success:function (data) {
+                            lay.msg(data);
+                        }
+                    });
                 });
             }
         });

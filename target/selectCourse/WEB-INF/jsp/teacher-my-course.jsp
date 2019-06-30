@@ -93,15 +93,28 @@
                 title : "修改课程",
                 type : 2,
                 area: ['80%', '80%'],
-                content : "${pageContext.request.contextPath}/login/teacher-change-course.action"
+                content : "${pageContext.request.contextPath}/teacher/teacher-change-course.action?topicId="+$(this).parent().prev().prev().children(":first").val()
             })
         });
         //删除
         $(".del").click(function () {
+            var topicId=$(this).parent().prev().prev().children(":first").val();
             layer.confirm('确定删除吗', {
-                btn: ['确定','取消'] //按钮
+                btn: ['确定','取消'], //按钮
+                yes:function () {
+                    $.ajax({
+                        url:'<%=basePath%>studentChoose/optTopic.action',
+                        type:'get',
+                        data:{topicId:topicId},
+                        success:function (data) {
+                            alert(data);
+                            window.location.reload();
+                            /*layer.msg('课程添加成功', {icon: 1});*/
+                        }
+                    });
+                }
             }, function(){
-                layer.msg('删除成功', {icon: 1});
+
             }, function(){
             });
         });

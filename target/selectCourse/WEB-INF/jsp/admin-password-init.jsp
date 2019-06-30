@@ -38,8 +38,20 @@
         var layer = layui.layer;
 
         $("#password-init").click(function () {
+            var userId=$(this).children().val();
+
             layer.confirm('确定重置该学生密码吗', {
-                btn: ['确定','取消'] //按钮
+                btn: ['确定','取消'], //按钮
+                yes:function () {
+                    $.ajax({
+                        url:'<%=basePath%>admin/updateTeacherPassword.action',
+                        type:'get',
+                        data:{userId:userId},
+                        success:function (data) {
+                            layer.msg(data);
+                        }
+                    })
+                }
             }, function(){
                 layer.msg('密码重置成功', {icon: 1});
             }, function(){

@@ -69,14 +69,14 @@
             ,title: '用户数据表'
             ,cols: [[
                 {type:'checkbox',width:80}
-                ,{field:'topic', title: '课题', width: '20%',minWidth: 100}
-                ,{field:'id', title: 'ID', width: 80}
-                ,{field:'username', width:80, title: '姓名',edit:'text'}
-                ,{field:'sex', width:80, title: '性别'}
-                ,{field:'major', width:80, title: '专业'}
-                ,{field:'course', title: '方向', width: '10%', minWidth: 100} //minWidth：局部定义当前单元格的最小宽度
-                ,{field:'telephone', title: '联系方式'}
-                ,{field:'other', title: '其他'}
+                ,{field:'topicId', title: '课题', width: '20%',minWidth: 100}
+                ,{field:'topicName', title: 'ID', width: 80}
+                ,{field:'demand', width:80, title: '姓名',edit:'text'}
+                ,{field:'numberLimit', width:80, title: '性别'}
+                ,{field:'majorLimit', width:80, title: '专业'}
+                ,{field:'userDetail', title: '方向', width: '10%', minWidth: 100} //minWidth：局部定义当前单元格的最小宽度
+                ,{field:'releaseSingal', title: '联系方式'}
+                ,{field:'numberNow', title: '其他'}
                 ,{width:150,title:'操作',fixed:'right',toolbar:'#barDemo'}
             ]]
             // ,page:true

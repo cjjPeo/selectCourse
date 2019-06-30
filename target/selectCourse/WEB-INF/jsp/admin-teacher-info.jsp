@@ -1,3 +1,4 @@
+
 <%--
   Created by IntelliJ IDEA.
   User: tutu
@@ -56,17 +57,17 @@
 
         table.render({
             elem: '#table'
-            ,url:'<%=basePath%>json/user.json'
+            ,url:'<%=basePath%>admin/findTeacherList.action'
             ,toolbar: '#toolbarDemo'
             ,height:430
-            ,title: '用户数据表'
+            ,title: '教师列表'
             ,cols: [[
                 {type:'checkbox',width:100}
-                ,{field:'id', width:150, title: 'ID', sort: true}
-                ,{field:'username', width:150, title: '姓名',edit:'text'}
-                ,{field:'course', title: '方向', width: '20%', minWidth: 100} //minWidth：局部定义当前单元格的最小宽度
-                ,{field:'telephone', title: '联系方式'}
-                ,{field:'other', title: '其他'}
+                ,{field:'userId',title:'教师ID', width:150, title: 'ID', sort: true}
+                ,{field:'userName',title:'姓名', width:150, title: '姓名',edit:'text'}
+                ,{field:'gender', title: '教性别', width: '20%', minWidth: 100} //minWidth：局部定义当前单元格的最小宽度
+                /*,{field:'telephone', title: '联系方式'}
+                ,{field:'other', title: '其他'}*/
                 ,{width:150,title:'操作',fixed:'right',toolbar:'#barDemo'}
             ]]
         });
@@ -110,7 +111,23 @@
             //console.log(obj)
             if(obj.event === 'del'){
                 layer.confirm('真的删除行么', function(index){
-                    obj.del();
+                    /*obj.del();*/
+                    var ajax = new jqajax();
+                    ajax.options.method = 'POST';
+                    ajax.options.contentType="application/json;charset=UTF-8";
+                    ajax.options.url = "<%=basePath%>admin/deleteTeacher.action?userId="+$(this).prev().prev().prev().val();
+                    ajax.options.data = obj.data;
+                    ajax.ajax(ajax.options);
+                    ajax.complete = function (ret, options) {
+                        if (ret.httpCode == 200) {
+                            layer.msg("删除成功!");
+                            layer.close(index);//关闭弹窗
+                            //刷新表格 tableId表格id
+                            layui.table.reload('taskTable',{page:{curr:1}});
+                        }else {
+                            layer.msg("删除失败!");
+                        }
+                    };
                     layer.close(index);
                 });
             } else if(obj.event === 'edit'){
@@ -118,10 +135,17 @@
                     formType: 2
                     ,value: data.email
                 }, function(value, index){
-                    obj.update({
+                   /* obj.update({
                         email: value
                     });
-                    layer.close(index);
+                    layer.close(index);*/
+                   $.ajax({
+                       type:'post',
+                       url:'<%=basePath%>admin/updateTeacher.action?userId='+$(this).prev().prev().prev().prev().val()+'&userName='+$(this).prev().prev().prev().val()+'&gender='+$(this).prev().prev().val(),
+                       success:function (data) {
+                           lay.msg(data);
+                       }
+                   });
                 });
             }
         });
