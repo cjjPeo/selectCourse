@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -50,7 +51,7 @@ public class StudentChooseController {
         System.out.println("        studentCourse");
         List<Topic> topicList=this.studentChooseService.findTopic(topicName,majorLimit,userName,"");
         model.addAttribute("topicList",topicList);
-        return "next";
+        return "student-course-list";
     }
     @RequestMapping(value = "tosss.action")
     public  String findTosss(HttpSession session,Model model){
@@ -59,5 +60,32 @@ public class StudentChooseController {
         model.addAttribute("userId",userId);
         return "sss";
     }
+    @RequestMapping("optTopic.action")
+    @ResponseBody
+    public String topicOpt(String userId,String topicId) {
+        if (userId!=null &&topicId!=null){
+            int rows=studentChooseService.optTopic(userId, topicId);
+            if(rows>0) {
+                return "OK";
+            }else {
+                return "FALL";
+            }
+        }
+        return "fail";
+    }
 
+    //删除我的选择
+    @RequestMapping("deleteMyChoose.action")
+    @ResponseBody
+    public String Deletemychoose(String userId) {
+        System.out.println("登录用户Id:"+userId);
+        int rows=studentChooseService.deleteMychoose(userId);
+        if(rows>0) {
+            System.out.println("删除成功！");
+            return "OK";
+        }else {
+            System.out.println("error！");
+            return "FALL";
+        }
+    }
 }

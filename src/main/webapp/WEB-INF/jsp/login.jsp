@@ -50,30 +50,32 @@
     </style>
 
 <body class="loginBody">
-<form class="layui-form">
+<form class="layui-form" action="<%=basePath%>login/register.action" method="post">
     <div class="login_face">
         <img src="<%=basePath%>img/101.png" style="position: relative;bottom: -50px;" class="userAvatar">
     </div>
     <div class="layui-form-item input-item">
         <label for="userName">学号/工号</label>
-        <input type="text" placeholder="请输入用户名" autocomplete="off" id="userName" class="layui-input" lay-verify="required">
+        <input type="text" placeholder="请输入用户名" autocomplete="off" id="userName" name="userId" class="layui-input" lay-verify="required">
     </div>
     <div class="layui-form-item input-item">
         <label for="password">密码</label>
-        <input type="password" placeholder="请输入密码" autocomplete="off" id="passWord" class="layui-input" lay-verify="required">
+        <input type="password" placeholder="请输入密码" autocomplete="off" id="passWord" name="password" class="layui-input" lay-verify="required">
     </div>
     <div class="layui-form-item input-item">
-        <input type="radio" name="id" value="r1" title="教师" >
-        <input type="radio" name="id" value="r2" title="学生" checked>
-        <input type="radio" name="id" value="r3" title="管理员" >
+        <input type="radio" name="userState" value="teacher" title="教师" >
+        <input type="radio" name="userState" value="user" title="学生" checked>
+        <input type="radio" name="userState" value="admin" title="管理员" >
     </div>
     <div class="layui-form-item">
-        <button class="layui-btn layui-block" lay-filter="login" lay-submit>登录</button>
+        <input type="submit" class="layui-btn layui-block" value="登录">
+        <%--<button class="layui-btn layui-block" onclick="">登录</button>--%>
     </div>
-
+${msg}
 
 </form>
 <script type="text/javascript" src="<%=basePath%>layui/layui.js"></script>
 <script type="text/javascript" src="<%=basePath%>js/login.js"></script>
+
 </body>
 </html>

@@ -3,6 +3,7 @@ package com.service.impl;
 import com.dao.StudentChooseDao;
 import com.pojo.Excel;
 import com.pojo.Topic;
+import com.pojo.User;
 import com.service.StudentChooseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,10 +23,12 @@ public class StudentChooseServiceImpl implements StudentChooseService {
        for(Topic topic:topicList){
            //对时间格式的处理
            Date date=topic.getDeadline();
-           SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-           String dateString=simpleDateFormat.format(date);
-           System.out.println(dateString);
-           topic.setDeadlineString(dateString);
+           if (date!=null){
+               SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+               String dateString=simpleDateFormat.format(date);
+               System.out.println(dateString);
+               topic.setDeadlineString(dateString);
+           }
            //已经选择人数
            Integer numberCount=this.studentChooseDao.findCountThisTopic(topic.getTopicId());
            topic.setNumberNow(numberCount);
@@ -36,4 +39,35 @@ public class StudentChooseServiceImpl implements StudentChooseService {
         return this.studentChooseDao.updatePassword(password,userId);
     }
 
+    @Override
+    public User findMyInfo(String userId) {
+        return this.studentChooseDao.findMyInfo(userId);
+    }
+
+    @Override
+    public int optTopic(String userId, String topicId) {
+        Integer i=this.studentChooseDao.findMyTopicCount(userId);
+        if (i>0){
+            return 0;
+        }
+        return studentChooseDao.optTopic(userId, topicId);
+    }
+
+    @Override
+    public Topic findMyTopic(String userId) {
+        Topic mytopicmsg = studentChooseDao.findMyTopic(userId);
+        if (mytopicmsg!=null){
+            Date date=mytopicmsg.getDeadline();
+            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String dateString=simpleDateFormat.format(date);
+            System.out.println(dateString);
+            mytopicmsg.setDeadlineString(dateString);
+        }
+        return mytopicmsg;
+    }
+
+    @Override
+    public int deleteMychoose(String userId) {
+        return studentChooseDao.deleteMychoose(userId);
+    }
 }

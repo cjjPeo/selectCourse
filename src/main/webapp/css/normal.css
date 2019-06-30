@@ -20,18 +20,11 @@
 }
 
 .add-new {
-    position: fixed;
-    bottom: 100px;
-    right: 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
 }
 
-#search-input {
-    background-image: url("../../img/搜索.svg");
-    background-repeat: no-repeat;
-    background-position: 5px 10px;
-    background-size:10%;
-    padding-left: 28px;
-}
+
 #search-input {
     height: 40px;
     width: 200px;

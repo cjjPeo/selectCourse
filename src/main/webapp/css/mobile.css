@@ -48,7 +48,10 @@
     margin-left: 260px;
     margin-top: 10px;
 }
-
-
+.layui-col-md4 {
+    /*background-color: yellow;*/
+    height: 220px;
+    margin-bottom: 15px;
+}
 
 

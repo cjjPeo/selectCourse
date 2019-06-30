@@ -33,5 +33,78 @@
     </update>
 
     <!--课程-->
-    <!--<select id="findCourses" parameterType="String" resultType=""></select>-->
+    <select id="findCourses" parameterType="String" resultType="topic">
+        select t.topicId,t.topicName,t.demand,t.majorLimit,t.numberLimit,t.releaseSingal,t1.userId,t1.userName from topic t
+        left join (select tt.userId,u.userName,tt.topicId from topic_teacher tt
+        left join (select userId,userName from users)u on u.userId=tt.userId)t1 on t1.topicId=t.topicId
+        <where>
+            <if test="topicId!=null and topicId!=''">
+                topicId=#{topicId}
+            </if>
+        </where>
+    </select>
+
+    <insert id="ManaAddTopic" parameterType="topic">
+     	insert into topic(topicId,topicName,topicYear,demand,numberLimit,numberNow,majorLimit,deadline,releaseSingal)
+     	values(#{topic.topicId},#{topic.topicName},#{topic.topicYear},#{topic.demand},#{topic.numberLimit},0,#{topic.majorLimit},#{topic.deadline},#{topic.releaseSingal});
+     	insert into topic_teacher(userId,topicId) values(#{topic.userId},#{topic.topicId})
+     </insert>
+    <update id="updateCourses" parameterType="topic">
+        update topic set (topicName,topicYear,demand,numberLimit,majorLimit,deadline,releaseSingal) values(#{topicName},#{topicYear},#{demand},#{numberLimit},#{majorLimit},#{deadline},#{releaseSingal}) where topicId=#{topicId}
+    </update>
+
+    <delete id="deleteCourseAt" parameterMap="String">
+        delete from topic where topicId=#{topicId};
+        delete from topic_teacher where topicId=#{topicId}
+    </delete>
+    <select id="findStudentList" parameterType="String" resultType="user">
+        select u.userId,u.userName,u.gender,u.enterYear,u.className,u.majorIn,u.selectedSignal,l.userState
+        from users as u
+        left join login as l on l.userId=u.userId
+        <where>
+            <if test="userId !=null and userId !=''">
+                u.userId like concat('%',#{userId},'%')
+            </if>
+            <if test="userName !=null and userName !=''">
+                u.userName like concat('%',#{userName},'%')
+            </if>
+            <if test="gender !=null and gender !=''">
+                u.gender =#{gender}
+            </if>
+            <if test="className !=null and className !=''">
+                u.className like concat('%',#{className},'%')
+            </if>
+            <if test="majorIn !=null and majorIn !=''">
+                u.majorIn like concat('%',#{majorIn},'%')
+            </if>
+            <if test="enterYear !=null and enterYear !=''">
+                u.enterYear =#{enterYear}
+            </if>
+            <if test="selectedSignal !=null and selectedSignal !=''">
+                u.selectedSignal = #{selectedSignal}
+            </if>
+            and l.userState='user'
+        </where>
+    </select>
+    <insert id="addStu" parameterType="user" >
+     	insert into users(userId,userName,gender,enterYear,className,majorIn,selectedSignal)
+     	values(#{user.userId},#{user.userName},#{user.gender},#{user.enterYear},#{user.className},#{user.majorIn},0);
+     	insert into login(userId,password,userState,remarks) values(#{user.userId},'123456','user',0)
+     </insert>
+
+    <select id="toeditStu" parameterType="String" resultType="user">
+     	select * from users where userId=#{userId}
+     </select>
+
+    <update id="editStu" parameterType="user">
+     	update users set userName=#{user.userName},className=#{user.className},majorIn=#{user.majorIn}
+     	where userId=#{user.userId}
+     </update>
+    <delete id="deleteStu" parameterType="String">
+     	delete from users where userId=#{userId};
+     	delete from login where userId=#{userId};
+     	delete from choose where userId=#{userId}
+     </delete>
+
+
 </mapper>

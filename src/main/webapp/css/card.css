@@ -1,6 +1,5 @@
 .card-title {
     font-size: 20px;
-    cursor: pointer;
 }
 .fl {
     float: left;
@@ -13,16 +12,21 @@
     line-height:2em;
 }
 .layui-card {
+    width: 95%;
+   /* height: 200px;*/
     display: inline-block;
     float: left;
     padding: 10px;
     margin-bottom: 10px;
+    /*background-color: green;*/
 }
 .detail {
+    width: 90%;
     padding-left: 20px;
     color: #ff6528;
     display: none;
     margin: 5px;
+    /*background-color: red;*/
 }
 .limit {
     color: #009688;
@@ -34,4 +38,30 @@
     width: 250px;
     height: 150px;
     margin: 10px;
+    /*background-color: yellow;*/
 }
+
+.course-list .height-auto {
+    height: auto;
+}
+
+.layui-card-header {
+    cursor: pointer;
+    /*background-color: skyblue;*/
+}
+.btn-select {
+    bottom: 0;
+    /*background-color: red;*/
+    height: 50px;
+}
+.layui-card-body {
+    /*background-color: pink;*/
+    height: 80px;
+}
+
+.layui-col-md4 {
+    /*background-color: yellow;*/
+    margin-bottom: 10px;
+}
+
+

@@ -4,24 +4,34 @@ layui.use(['form','layer','jquery'],function(){
         $ = layui.jquery;
 
     //登录按钮
-    form.on("submit(login)",function(data){
+    /*form.on("submit(login)",function(data){
         $(this).text("登录中...").attr("disabled","disabled").addClass("layui-disabled");
 
-        var $check = $('input:radio:checked').val()
+       /!* var $check = $('input:radio:checked').val()
         setTimeout(function(){
             if($check == "r1"){
-                window.location.href = "../idea-project/page/teacher/teacher.html";
+                window.location.href = "/login/register.action";
             }
             if($check == "r2"){
-                window.location.href = "../idea-project/page/student/student.html";
+                window.location.href = "/login/register.action";
             }
             if($check == "r3"){
-                window.location.href = "../idea-project/page/admin/admini.html";
+                window.location.href = "/login/register.action";
+            }*!/
+       $.ajax({
+            url:'/login/register.action',
+            method:'post',
+            dataType:'JSON',
+            error:function (data) {
+                alert("失败");
+                console.log(data);
             }
+        });
+        console.log(data);
 
-        },1000);
+        /!*},1000);*!/
         return false;
-    })
+    })*/
 
     //表单输入效果
     $(".loginBody .input-item").click(function(e){

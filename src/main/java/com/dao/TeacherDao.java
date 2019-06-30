@@ -16,4 +16,7 @@ public interface TeacherDao {
     public Integer updateStudentSignal(@Param("selectedSignal")String selectedSignal,@Param("userId")String userId);
     public Integer insertStudentTopic(@Param("userId")String userId,@Param("topicId")String topicId);
     public List<StudentAndTopic> findStudentForInsert();
+    Topic findOneTopic(@Param("topicId")String topicId);
+    public int editThistopic(@Param("topic")Topic topic); //修改课程
+    public int deleteTopic(@Param("topicId")String topicId);
 }

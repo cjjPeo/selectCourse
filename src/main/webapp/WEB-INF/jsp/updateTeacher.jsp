@@ -10,10 +10,10 @@
 <head>
     <title>Title</title>
 </head>
-<body><form action=""${pageContext.request.contextPath}/admin/updateTeacher.action">
+<body><form action="${pageContext.request.contextPath}/admin/updateTeacher.action">
     <input type="text" value="${userId}" name="userId" readonly>
     <input type="text" value="${userName}" name="userName">
-    <input type="text" value="${gender}" name=""gender>
+    <input type="text" value="${gender}" name="gender">
     <input type="submit" value="提交">
 </form>
 </body>

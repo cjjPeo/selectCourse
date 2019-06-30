@@ -9,6 +9,7 @@ public class Excel {
     private String majorLimit;
     private String userDetail;
     private String releaseSingal;
+    private String numberNow;
 
     public String getUserId() {
         return userId;
@@ -72,5 +73,13 @@ public class Excel {
 
     public void setReleaseSingal(String releaseSingal) {
         this.releaseSingal = releaseSingal;
+    }
+
+    public String getNumberNow() {
+        return numberNow;
+    }
+
+    public void setNumberNow(String numberNow) {
+        this.numberNow = numberNow;
     }
 }

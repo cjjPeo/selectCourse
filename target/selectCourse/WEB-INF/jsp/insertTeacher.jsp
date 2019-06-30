@@ -14,7 +14,9 @@
 <form action="${pageContext.request.contextPath}/admin/insertTeacher.action">
     编号<input type="text" name="userId" id="userId">
     老师的名字<input type="text" name="userName" id="userName">
-    性别<input type="text" name="gender" id="gender">
+    性别<input type="radio" name="gender" value="女">女
+    <input type="radio" name="gender" value="男">男
+
     <input type="submit" value="提交">
 </form>
 </body>

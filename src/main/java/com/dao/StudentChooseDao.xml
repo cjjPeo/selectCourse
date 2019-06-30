@@ -29,4 +29,28 @@
     <update id="updatePassword" parameterType="String">
         update login set password=md5(#{password}) where userId=#{userId}
     </update>
+
+    <select id="findMyInfo" parameterType="String" resultType="user">
+        select * from users where userId=#{userId}
+    </select>
+<!--添加我的选课-->
+    <insert id="optTopic" parameterType="String">
+    	INSERT INTO choose VALUES (#{userId},#{topicId})
+     </insert>
+<!--本人是否已经选择-->
+    <select id="findMyTopicCount" parameterType="String" resultType="Integer">
+        select count(*) from choose where userId=#{userId}
+    </select>
+    <delete id="deleteMychoose" parameterType="String">
+     	delete from choose where userId=#{userId}
+     </delete>
+
+    <select id="findMyTopic" parameterType="String" resultType="topic">
+	    select c.userId,c.topicId,t.topicName,u.userName,t.demand,t.numberLimit,
+	    t.majorLimit,t.deadline,tt.userId from choose as c
+		left join topic_teacher as tt on tt.topicId=c.topicId
+		left join topic as t on t.topicId=c.topicId
+		left join users as u on tt.userId=u.userId
+		where c.userId=#{userId}
+    </select>
 </mapper>

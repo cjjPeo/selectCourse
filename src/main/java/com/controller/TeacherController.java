@@ -1,5 +1,6 @@
 package com.controller;
 
+//import net.sf.json.JSONObject;
 import com.Execel.ExecelUtil;
 import com.pojo.*;
 import com.service.StudentChooseService;
@@ -21,6 +22,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -236,6 +238,7 @@ public class TeacherController {
         return "insertOneT";
     }
     @RequestMapping(value = "insertOneTopic.action")
+    @ResponseBody
     public String insertOneTopic (String topicId,String topicName,String demand,Integer numberLimit,String majorLimit,HttpSession session,Model model){
         Integer sign=this.teacherService.findTopicById(topicId);
         if(sign>0){
@@ -258,19 +261,34 @@ public class TeacherController {
         Integer sign2=this.teacherService.insertOneTopic(topic);
         if (sign2>0){
             model.addAttribute("msg","插入成功");
+            return "OK";
         }else{
             model.addAttribute("msg","插入失败");
 
         }
-        return "next";
+        return "fail";
     }
     //查看教师自己的课程
-    @RequestMapping(value = "selectTopicByUserId.action")
+    @RequestMapping(value = "teacher-my-course.action")
     public String selectTopicByUserId(HttpSession session,Model model){
         Login login =(Login)session.getAttribute("USER_SESSION");
         List<Excel> excelList=this.teacherService.findSelectByTeacher(login.getUserId(),"");
         model.addAttribute("excelList",excelList);
-        return "showTeacherTopic";
+        return "teacher-my-course";
+    }
+    @RequestMapping(value = "teacherAllTopic.action")
+    @ResponseBody
+    /*public JSONArray teacherAllTopic(HttpSession session){
+        Login login =(Login)session.getAttribute("USER_SESSION");
+        List<Excel> excelList=this.teacherService.findSelectByTeacher(login.getUserId(),"");
+        JSONArray jb = JSONArray.fromObject( excelList );
+        return jb;
+    }*/
+    public String teacherAllTopic(HttpSession session){
+        Login login =(Login)session.getAttribute("USER_SESSION");
+        List<Excel> excelList=this.teacherService.findSelectByTeacher(login.getUserId(),"");
+      //  JSONArray jb = JSONArray.fromObject( excelList );
+        return "";
     }
     @RequestMapping(value = "getTopicStudent.action")
     public String getTopicStudent(String studentList,String topicId,Model model){
@@ -374,5 +392,40 @@ public class TeacherController {
             }
         }
         return "redirect:/teacher/selectTopicByUserId.action";
+    }
+
+    @RequestMapping(value = "teacher-change-course.action")
+    public  String teacher3(String topicId,Model model){
+        Topic topic=this.teacherService.findOneTopic(topicId);
+        model.addAttribute("topic",topic);
+        return  "teacher-change-course";
+    }
+    //教师修改自己的课程
+    @RequestMapping("editThistopic.action")
+    @ResponseBody
+    public String editT(Topic topic){
+        int rows=teacherService.editThistopic(topic);
+        System.out.println(topic);
+        if(rows>0) {
+            System.out.println("修改课题成功！");
+            return "OK";
+        }else {
+            System.out.println("修改课题失败！");
+            return "FALL";
+        }
+    }
+    //教师删除自己的课题
+    @RequestMapping("deleteTopic.action")
+    @ResponseBody
+    public String deleteT(String topicId) {
+        System.out.println("删除的课题编号:"+topicId);
+        int rows=teacherService.deleteTopic(topicId);
+        if(rows>0) {
+            System.out.println("删除课题成功！");
+            return "OK";
+        }else {
+            System.out.println("删除课题失败！");
+            return "FALL";
+        }
     }
 }

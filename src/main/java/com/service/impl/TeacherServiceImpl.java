@@ -1,5 +1,6 @@
 package com.service.impl;
 
+import com.dao.StudentChooseDao;
 import com.dao.TeacherDao;
 import com.pojo.Excel;
 import com.pojo.StudentAndTopic;
@@ -16,8 +17,16 @@ import java.util.List;
 public class TeacherServiceImpl implements TeacherService {
     @Autowired
     private TeacherDao teacherDao;
+    @Autowired
+    private StudentChooseDao studentChooseDao;
     public List<Excel> findSelectByTeacher(String userId,String releaseSignal){
-        return this.teacherDao.findSelectByTeacher(userId,releaseSignal);
+        List<Excel> excelList= this.teacherDao.findSelectByTeacher(userId,releaseSignal);
+        for (Excel excel:excelList){
+            String topicId=excel.getTopicId();
+            Integer count=this.studentChooseDao.findCountThisTopic(topicId);
+            excel.setNumberNow(String.valueOf(count));
+        }
+        return excelList;
     }
     public Integer findTopicById(String topicId){
         return this.teacherDao.findTopicById(topicId);
@@ -78,5 +87,19 @@ public class TeacherServiceImpl implements TeacherService {
         }else{
             return 0;
         }
+    }
+
+    @Override
+    public int editThistopic(Topic topic) {
+        return teacherDao.editThistopic(topic);
+    }
+
+    @Override
+    public Topic findOneTopic(String topicId) {
+        return this.teacherDao.findOneTopic(topicId);
+    }
+    @Override
+    public int deleteTopic(String topicId) {
+        return teacherDao.deleteTopic(topicId);
     }
 }
