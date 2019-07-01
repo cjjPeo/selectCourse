@@ -51,7 +51,7 @@
             left  join (select userId,userName from users)t3 on tt.userId=t3.userId)t2 on t2.topicId=t1.topicId)t on c.topicId=t.topicId)c1 on c1.userId=u.userId)u1 on u1.userId=l.userId
         <where>
             <if test="userId!=null and userId!=''">
-                    teacherId=#{teacherId}
+                    teacherId=#{userId}
             </if>
             and userState='user'
         </where>
@@ -75,4 +75,13 @@
     <delete id="deleteTopicInChoose" parameterType="String">
      	delete from choose where topicId=#{topicId}
      </delete>
+
+    <!-- 一键结束我的课题 -->
+    <update id="stopMyTopic" parameterType="String">
+     	update topic t INNER JOIN
+		(select topicId from topic_teacher where userId=#{userId}) r
+		SET t.releaseSingal=#{releaseSingal}
+        where  t.topicId=r.topicId
+     </update>
+
 </mapper>

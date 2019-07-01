@@ -16,6 +16,12 @@ import java.util.List;
 public class AdminController {
     @Autowired
     private AdminService adminService;
+    @RequestMapping(value = "admin-teacher-info.action")
+    public  String admin5(Model model){
+        List<User> teacherList=this.adminService.findTeacherList();
+        model.addAttribute("teacherList",teacherList);
+        return  "admin-teacher-info1";
+    }
     @RequestMapping(value = "findTeacherList.action")
     @ResponseBody
    /* public JSONArray findTeacherList(Model model){
@@ -49,9 +55,13 @@ public class AdminController {
         return "redirect:/admin/findTeacherList.action";
     }
     @RequestMapping(value = "deleteTeacher.action")
+    @ResponseBody
     public String deleteTeacher(String userId,Model model){
-        this.adminService.deleteTeacher(userId);
-        return "redirect:/admin/findTeacherList.action";
+       Integer i= this.adminService.deleteTeacher(userId);
+       if (i>0){
+           return "OK";
+       }else return "FAIL";
+        //return "redirect:/admin/findTeacherList.action";
     }
     //重置密码
     @RequestMapping(value = "updateTeacherPassword.action")
@@ -78,6 +88,12 @@ public class AdminController {
             return "OK";
         }
         return "FAIL";
+    }
+    @RequestMapping(value = "admin-course.action")
+    public  String admin2( Model model){
+        List<Topic> topicList=this.adminService.findCourses("");
+        model.addAttribute("topicList",topicList);
+        return  "admin-course1";
     }
     @RequestMapping(value = "findCourses.action")
     @ResponseBody
@@ -121,6 +137,7 @@ public class AdminController {
         }
         return "FAIL";
     }
+
     @RequestMapping(value = "deleteCourses.action")
     @ResponseBody
     public String deleteTopic(String topicId){
@@ -129,6 +146,30 @@ public class AdminController {
             return "OK";
         }
         return "FAIL";
+    }
+    @RequestMapping(value = "startAllCourse.action")
+    @ResponseBody
+    public String startAllCourse(){
+        Integer integer=this.adminService.startAllCourse();
+        if (integer>0){
+            return "ok";
+        }
+        return "fail";
+    }
+    @RequestMapping(value = "stopAllCourse.action")
+    @ResponseBody
+    public String stopAllCourse(){
+        Integer integer=this.adminService.stopAllCourse();
+        if (integer>0){
+            return "ok";
+        }
+        return "fail";
+    }
+    @RequestMapping(value = "admin-student-info.action")
+    public  String admin4(Model model){
+        List<User> students=adminService.findStudentList("", "", null, "", "", "", null);
+        model.addAttribute("students",students);
+        return  "admin-student-info1";
     }
     @RequestMapping("StudentList.action")
     @ResponseBody
@@ -172,7 +213,7 @@ public class AdminController {
         model.addAttribute("user",u);
         return u;
     }
-    @RequestMapping("/editStu")
+    @RequestMapping("editStu.action")
     @ResponseBody
     public String editStumsg(User user) {
         //user.setUserId("");

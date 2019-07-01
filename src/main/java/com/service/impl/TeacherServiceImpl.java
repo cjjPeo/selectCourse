@@ -107,4 +107,14 @@ public class TeacherServiceImpl implements TeacherService {
            return 1;
           else  return 0;
     }
+
+    @Override
+    public int stopMyTopic(String topicId) {
+        return teacherDao.stopMyTopic("0",topicId);
+    }
+    @Override
+    public int startMyTopic(String topicId) {
+        return teacherDao.stopMyTopic("1",topicId);
+    }
+
 }

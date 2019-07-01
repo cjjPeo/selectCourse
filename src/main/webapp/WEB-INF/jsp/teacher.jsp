@@ -42,7 +42,7 @@
                 <dl class="layui-nav-child">
                     <dd><a href="${pageContext.request.contextPath}/login/change-password.action" target="right"><i class="layui-icon layui-icon-refresh"></i>&nbsp<cite>修改密码</cite></a></dd>
                     <dd><a href="${pageContext.request.contextPath}/login/notice.action" target="right"><i class="layui-icon layui-icon-speaker"></i>&nbsp<cite>系统公告</cite></a></dd>
-                    <dd><a href="${pageContext.request.contextPath}/login/login.action"><i class="layui-icon layui-icon-return"></i>&nbsp<cite>退出</cite></a></dd>
+                    <dd><a href="${pageContext.request.contextPath}/login/quit.action"><i class="layui-icon layui-icon-return"></i>&nbsp<cite>退出</cite></a></dd>
                 </dl>
             </li>
 

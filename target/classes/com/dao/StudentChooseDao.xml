@@ -37,6 +37,9 @@
     <insert id="optTopic" parameterType="String">
     	INSERT INTO choose VALUES (#{userId},#{topicId})
      </insert>
+    <update id="optTopic2" parameterType="String">
+        update users set selectedSignal='1' where userId=#{userId}
+    </update>
 <!--本人是否已经选择-->
     <select id="findMyTopicCount" parameterType="String" resultType="Integer">
         select count(*) from choose where userId=#{userId}

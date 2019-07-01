@@ -46,7 +46,7 @@
         <c:forEach items="${excelList}" var="its" begin="${status.index}" end="${status.index+2}" >
         <div class="layui-col-md4">
             <div class="layui-card"  >
-                <div class="layui-card-header"><span class="card-title">${its.topicName}</span><span class="fr"></span></div>
+                <div class="layui-card-header"><span class="card-title">${its.topicName}</span><span class="fr">发布状态：${its.releaseSingal}</span></div>
                 <div class="layui-card-body" >
                     <input type="text" id="topicId" value="${its.topicId}" hidden>
                     <input type="text" id="userId" value="${USER_SESSION.userId}" hidden>

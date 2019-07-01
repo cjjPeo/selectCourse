@@ -102,6 +102,9 @@
 
                 }
             })
+            var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+            console.log(index);
+            parent.layer.close(index);
             /*parent.layer.close(index);*/
         });
         $(".layui-btn-primary").click(function () {

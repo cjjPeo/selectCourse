@@ -75,7 +75,7 @@
                 btn: ['确定','取消'], //按钮
                 yes:function () {
                     $.ajax({
-                        url:'<%=basePath%>admin/updateTeacherPassword.action',
+                        url:'<%=basePath%>teacher/updatePass.action',
                         type:'post',
                         data:{password:password},
                         success:function (data) {

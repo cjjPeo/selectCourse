@@ -88,22 +88,13 @@ public class LoginController {
     public  String admin1(){
         return  "admin";
     }
-    @RequestMapping(value = "admin-course.action")
-    public  String admin2(){
-        return  "admin-course";
-    }
+
     @RequestMapping(value = "admin-password-init.action")
     public  String admin3(){
         return  "admin-password-init";
     }
-    @RequestMapping(value = "admin-student-info.action")
-    public  String admin4(){
-        return  "admin-student-info";
-    }
-    @RequestMapping(value = "admin-teacher-info.action")
-    public  String admin5(){
-        return  "admin-teacher-info";
-    }
+
+
 
     //登录页面刷新
     @RequestMapping(value = "register.action",method = RequestMethod.GET)

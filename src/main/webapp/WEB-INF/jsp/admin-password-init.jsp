@@ -38,7 +38,7 @@
         var layer = layui.layer;
 
         $("#password-init").click(function () {
-            var userId=$(this).children().val();
+            var userId=$(this).prev().children().val();
 
             layer.confirm('确定重置该学生密码吗', {
                 btn: ['确定','取消'], //按钮

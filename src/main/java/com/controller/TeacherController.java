@@ -40,20 +40,27 @@ public class TeacherController {
     @Autowired
     private TeacherService teacherService;
     @RequestMapping(value = "updatePass.action")
-    public String updatePassword(String userId, String password, Model model){
-        int i=this.studentChooseService.updatePassword(userId,password);
+    @ResponseBody
+    public String updatePassword(HttpSession session, String password, Model model){
+        Login login=(Login)session.getAttribute("USER_SESSION");
+        int i=this.studentChooseService.updatePassword(login.getUserId(),password);
         if(i>0){
             model.addAttribute("msg","修改成功");
+            return "ok";
         }else{
             model.addAttribute("msg","修改失败");
+            return "fail";
         }
-        return "sss";
+
     }
     @RequestMapping(value = "teacher-select-list.action")
     public  String teacher5(HttpSession session,Model model){
         Login login=(Login)session.getAttribute("USER_SESSION");
         List<StudentAndTopic> list=this.teacherService.findStudentToTopic(login.getUserId());
+        //已经发布的课程名
+        List<Excel> excelList=this.teacherService.findSelectByTeacher(login.getUserId(),"1");
         model.addAttribute("studentList",list);
+        model.addAttribute("courseList",excelList);
         return  "teacher-select-list";
     }
 //导出表格
@@ -345,14 +352,17 @@ public class TeacherController {
         return "updateStudentTopic";
     }
     @RequestMapping(value = "updateStudentTopic.action")
+    @ResponseBody
     public String updateStudentTopic(String topicId,String userId,Model model){
         Integer sin=this.teacherService.updateStudentTopic(topicId,userId);
         if (sin>0){
-            model.addAttribute("msg","添加成功！");
+            return "ok";
+           // model.addAttribute("msg","添加成功！");
         }else {
-            model.addAttribute("msg","添加失败");
+            return "fail";
+          //  model.addAttribute("msg","添加失败");
         }
-        return "redirect:/teacher/selectTopicByUserId.action";//流程还要改
+        //return "redirect:/teacher/selectTopicByUserId.action";//流程还要改
     }
     //从课程中删除学生的操作，另外接入的时候可能需要判断该学生选的课程是否是该教师的
     @RequestMapping(value = "deleteStudentFromThisTopic.action")
@@ -364,7 +374,7 @@ public class TeacherController {
         }else {
             model.addAttribute("msg","删除失败");
         }
-        return "redirect:/teacher/selectTopicByUserId.action";
+        return "redirect:/teacher/teacher-select-list.action";
     }
     //将学生添加进课题,显示全部学生的信息和选择状态，如果有选择的课程可以先让他退选然后再选择
     @RequestMapping(value = "findStudentToTopic.action")
@@ -433,6 +443,33 @@ public class TeacherController {
             return "OK";
         }else {
             System.out.println("删除课题失败！");
+            return "FALL";
+        }
+    }
+
+    @RequestMapping("stopMyTopic.action")
+    @ResponseBody
+    public String stopt(HttpSession session) {
+        Login login=(Login)session.getAttribute("USER_SESSION");
+        int rows=teacherService.stopMyTopic(login.getUserId());
+        if(rows>0) {
+            System.out.println("结束所有课题成功！");
+            return "OK";
+        }else {
+            System.out.println("结束所有课题失败！");
+            return "FALL";
+        }
+    }
+    @RequestMapping("startMyTopic.action")
+    @ResponseBody
+    public String startMyTopic(HttpSession session) {
+        Login login=(Login)session.getAttribute("USER_SESSION");
+        int rows=teacherService.startMyTopic(login.getUserId());
+        if(rows>0) {
+            System.out.println("结束所有课题成功！");
+            return "OK";
+        }else {
+            System.out.println("结束所有课题失败！");
             return "FALL";
         }
     }

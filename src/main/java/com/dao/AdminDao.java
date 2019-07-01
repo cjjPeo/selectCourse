@@ -37,4 +37,7 @@ public interface AdminDao {
                                       @Param("enterYear")String enterYear,
                                       @Param("selectedSignal")Character selectedSignal);
 
+    Integer stopAllCourse();
+    Integer startAllCourse();
+
 }

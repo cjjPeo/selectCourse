@@ -27,4 +27,6 @@ public interface AdminService {
     public int ManaAddTopic(Topic topic);
     Integer deleteCourseAt(String topicId);
     public List<User> findStudentList(String userId,String userName,Character gender,String enterYear,String className,String majorIn,Character selectedSignal);
+    Integer stopAllCourse();
+    Integer startAllCourse();
 }

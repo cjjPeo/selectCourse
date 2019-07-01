@@ -21,4 +21,5 @@ public interface TeacherDao {
     public int deleteTopicInTopic(@Param("topicId")String topicId);
     public int deleteTopicInToTea(@Param("topicId")String topicId);
     public int deleteTopicInChoose(@Param("topicId")String topicId);
+    public int stopMyTopic(@Param("releaseSingal")String releaseSingal,@Param("userId")String userId); //结束课题
 }

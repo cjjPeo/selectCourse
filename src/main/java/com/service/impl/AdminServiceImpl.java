@@ -125,4 +125,14 @@ public class AdminServiceImpl implements AdminService {
         List<User> students = adminDao.findStudentList(userId, userName, gender, className, majorIn, enterYear, selectedSignal);
         return students;
     }
+
+    @Override
+    public Integer startAllCourse() {
+        return this.adminDao.startAllCourse();
+    }
+
+    @Override
+    public Integer stopAllCourse() {
+        return this.adminDao.stopAllCourse();
+    }
 }

@@ -42,7 +42,7 @@
                 <dl class="layui-nav-child">
                     <dd><a href="${pageContext.request.contextPath}/login/change-password.action" target="right"><i class="layui-icon layui-icon-refresh"></i>&nbsp<cite>修改密码</cite></a></dd>
                     <dd><a href="${pageContext.request.contextPath}/login/notice.action" target="right"><i class="layui-icon layui-icon-speaker"></i>&nbsp<cite>系统公告</cite></a></dd>
-                    <dd><a href="${pageContext.request.contextPath}/login/login.action"><i class="layui-icon layui-icon-return"></i>&nbsp<cite>退出</cite></a></dd>
+                    <dd><a href="${pageContext.request.contextPath}/login/quit.action"><i class="layui-icon layui-icon-return"></i>&nbsp<cite>退出</cite></a></dd>
                 </dl>
             </li>
 
@@ -59,7 +59,7 @@
                 <li class="layui-nav-item "><a href="${pageContext.request.contextPath}/teacher/teacher-my-course.action" target="right">
                     <img src="<%=basePath%>img/课程.svg" style="width: 20px;height: 20px;">&nbsp;&nbsp;我的课程
                 </a></li>
-                <li class="layui-nav-item "><a href="${pageContext.request.contextPath}/login/teacher-select-list.action" target="right">
+                <li class="layui-nav-item "><a href="${pageContext.request.contextPath}/teacher/teacher-select-list.action" target="right">
                     <img src="<%=basePath%>img/名称-完成情况.svg" style="width: 20px;height: 20px;">&nbsp;&nbsp;选课情况
 
                 </a></li>

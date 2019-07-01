@@ -106,5 +106,11 @@
      	delete from choose where userId=#{userId}
      </delete>
 
+    <update id="stopAllCourse" >
+        update topic set releaseSingal='0'
+    </update>
 
+    <update id="startAllCourse">
+        update topic set releaseSingal='1'
+    </update>
 </mapper>

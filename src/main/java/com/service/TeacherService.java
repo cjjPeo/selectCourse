@@ -18,6 +18,9 @@ public interface TeacherService {
     public List<StudentAndTopic> findStudentToTopic(String userId);
     Topic findOneTopic(String topicId);
 
+    public int stopMyTopic(String topicId);	//结束课题
+    public int startMyTopic(String topicId);	//结束课题
+
     public int editThistopic(Topic topic);
     public int deleteTopic(String topicId);
 }

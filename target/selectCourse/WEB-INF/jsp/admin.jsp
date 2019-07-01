@@ -53,13 +53,13 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-                <li class="layui-nav-item "><a href="${pageContext.request.contextPath}/login/admin-course.action" target="right">
+                <li class="layui-nav-item "><a href="${pageContext.request.contextPath}/admin/admin-course.action" target="right">
                     <img src="<%=basePath%>img/全部课程.svg" style="width: 20px;height: 20px;">&nbsp;&nbsp;全部课程
                 </a></li>
-                <li class="layui-nav-item "><a href="${pageContext.request.contextPath}/login/admin-student-info.action" target="right">
+                <li class="layui-nav-item "><a href="${pageContext.request.contextPath}/admin/admin-student-info.action" target="right">
                     <img src="<%=basePath%>img/学生信息.svg" style="width: 20px;height: 20px;">&nbsp;&nbsp;学生信息管理
                 </a></li>
-                <li class="layui-nav-item"><a href="${pageContext.request.contextPath}/login/admin-teacher-info.action" target="right">
+                <li class="layui-nav-item"><a href="${pageContext.request.contextPath}/admin/admin-teacher-info.action" target="right">
                     <img src="<%=basePath%>img/教师.svg" style="width: 20px;height: 20px;">&nbsp;&nbsp;教师信息管理
                 </a></li>
                 <li class="layui-nav-item"><a href="${pageContext.request.contextPath}/login/admin-password-init.action" target="right">
@@ -72,7 +72,7 @@
     <div class="layui-body" style="background: #F2F2F2;">
         <!-- 内容主体区域 -->
         <div style="padding: 15px;">
-            <iframe src="${pageContext.request.contextPath}/login/admin-course.action" name="right" frameborder="0" width="100%" height="700px">
+            <iframe src="${pageContext.request.contextPath}/admin/admin-course.action" name="right" frameborder="0" width="100%" height="700px">
 
             </iframe>
 
